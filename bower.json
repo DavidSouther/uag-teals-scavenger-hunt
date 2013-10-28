@@ -1,0 +1,17 @@
+{
+  "name": "angular-app-base",
+  "license": "Novus Internal",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.3.9",
+    "angular": "~1.2.1",
+    "angular-mocks": "~1.2.1"
+  }
+}
