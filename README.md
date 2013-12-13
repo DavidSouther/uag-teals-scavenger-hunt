@@ -17,6 +17,7 @@
         1. src/client/main/main.coffee
         1. src/client/main/test.coffee
         1. src/features/integration/users/App/smoke.feature
+        1. src/Gruntfile.coffee
 
     1. Grunt :)
 
