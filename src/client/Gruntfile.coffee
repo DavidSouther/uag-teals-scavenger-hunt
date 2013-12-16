@@ -1,6 +1,7 @@
 module.exports = (grunt)->
     flatten = (a, b)-> a.concat b
 
+    module = 'angularBase'
     appFileOrdering = [
         # This array has the various file arguments in correct order.
         'src/client/main/main.coffee'
@@ -40,7 +41,7 @@ module.exports = (grunt)->
                     dest: 'build/client/templates.js'
                 }]
                 options:
-                    moduleName: 'angularBase'
+                    moduleName: module
                     processName: jadeTemplateId
 
         copy:
@@ -94,7 +95,7 @@ module.exports = (grunt)->
                     ].reduce(flatten, [])
                     ngHtml2JsPreprocessor:
                         jade: true
-                        moduleName: 'angularApp'
+                        moduleName: module
                         cacheIdFromPath: jadeTemplateId
 
     grunt.registerTask 'testClient',

@@ -1,4 +1,4 @@
-= How to start a new project from Angular Base
+# How to start a new project from Angular Base
 
 1. Prep the new repo
     1. Clone AngularBase NewRepo
@@ -12,12 +12,13 @@
         1. package.json
         1. bower.json
         1. src/client/index.jade
-            1. Title
-            1. ng-app
+            * `Title` line 7
+            * `ng-app` line 16
         1. src/client/main/main.coffee
         1. src/client/main/test.coffee
+        1. src/client/Gruntfile.coffee
+          * `module` line 4
         1. src/features/integration/users/App/smoke.feature
-        1. src/Gruntfile.coffee
 
     1. Grunt :)
 
@@ -33,7 +34,7 @@
     1. remote add origin ssh://fork
 
 
-= Ongoing
+# Ongoing
 
 1. git branch
     * aloha-xxx/ShortDescription -- Any task with a story in JIRA
@@ -78,3 +79,4 @@
         1. Any PRs without tests will be declined immediately.
         1. When all devs Approve, PR Owner can merge.
     1. Pull master - should ALWAYS be a fast forward.
+
