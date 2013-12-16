@@ -4,7 +4,7 @@
   "description": "Novus AngularJS Application Base",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node ./node_modules/bower/lib/bower install",
+    "postinstall": "node ./node_modules/bower/bin/bower install",
     "start": "node ./src/deploy/start.js",
     "test": "node ./node_modules/grunt/lib/grunt test"
   },
