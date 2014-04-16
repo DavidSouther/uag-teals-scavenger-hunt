@@ -10,8 +10,9 @@
     "tests"
   ],
   "dependencies": {
-    "d3": "~3.3.9",
-    "angular": "~1.2.1",
-    "angular-mocks": "~1.2.1"
+    "angular": "~1.2.15",
+    "angular-cookies": "~1.2.15",
+    "angular-route": "~1.2.15",
+    "angular-mocks": "~1.2.15"
   }
 }

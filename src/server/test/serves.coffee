@@ -1,35 +1,39 @@
 should = require "should"
 server = require "../server"
-request = require "request"
-
-get = (path, d, cb)->
-    request path, (e, r, b)->
-        cb e, r, b
-        d()
-
-root = -> "http://localhost:#{process.env.PORT}/"
-index = (d, cb)-> get "#{root()}index.html", d, cb
-styles = (d, cb)-> get "#{root()}styles.css", d, cb
-
-Callbacks =
-    OK: (e, res)->
-        res.statusCode.should.equal 200
+process.env.LOG_LEVEL = 'WARN'
+request = require("supertest")(server.express)
 
 describe "Server", ->
-
-    before server.start
-    after server.stop
-
     describe "index.html", (done)->
         it "returns an index", (done)->
-            index done, Callbacks.OK
+            request.get('/index.html')
+            .expect(200)
+            .end done
 
-    describe "styles.css", ->
+    describe "styles: all", ->
         it "returns a stylesheet", (done)->
-            styles done, Callbacks.OK
+            request.get('/all.css')
+            .expect(200)
+            .expect('content-type', /text\/css/)
+            .end done
 
-        it "returns a css bundle", (done)->
-            styles done, (e, res)->
-                res.headers["content-type"]
-                .indexOf("text/css")
-                .should.be.greaterThan -1
+    describe "styles: print", ->
+        it "returns a stylesheet", (done)->
+            request.get('/print.css')
+            .expect(200)
+            .expect('content-type', /text\/css/)
+            .end done
+
+    describe "styles: screen", ->
+        it "returns a stylesheet", (done)->
+            request.get('/screen.css')
+            .expect(200)
+            .expect('content-type', /text\/css/)
+            .end done
+
+    describe "html5", ->
+        it "returns index on any request to non-asset.", (done)->
+            request.get('/deep/link')
+            .expect(200)
+            .expect('content-type', /text\/html/)
+            .end done

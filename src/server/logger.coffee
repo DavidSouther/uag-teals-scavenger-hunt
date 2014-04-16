@@ -1,13 +1,18 @@
 winston = require 'winston'
 express = require 'express'
-winston = new winston.Logger
-    transports: [
-        new winston.transports.Console({level: process.env.LOG_LEVEL || 'info'})
-    ]
+
+level = process.env.LOG_LEVEL || 'info'
+colorize = yes
+timestamp = yes
+opts = {level, colorize, timestamp}
+
+winston = winston
+    .remove(winston.transports.Console)
+    .add(winston.transports.Console, opts)
 
 stream =
     write: (message, encoding)->
-        winston.info message
+        winston.verbose message
 
 logger = express.logger({stream})
 

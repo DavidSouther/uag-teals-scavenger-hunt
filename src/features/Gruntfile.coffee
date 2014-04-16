@@ -6,6 +6,8 @@ module.exports = (grunt)->
             integration:
                 files:
                     src: features
+                options:
+                    tags: '~@broken'
             current:
                 files:
                     src: features
@@ -13,6 +15,7 @@ module.exports = (grunt)->
                     tags: '@current'
             options:
                 steps: 'src/features/integration/steps'
+                format: 'pretty'
 
     grunt.registerTask 'featuresCurrent',
         'Run CucumberJS features tagged @current',

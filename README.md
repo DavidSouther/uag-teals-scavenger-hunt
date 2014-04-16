@@ -1,5 +1,39 @@
 # How to start a new project from Angular Base
 
+# Setup
+
+Clone the repository and `cd` to the directory.
+
+    git clone ssh://git@stash.novus.local:2022/aloha/nv-chrome.git
+    cd nv-chrome
+
+## Install Node, Grunt, and Bower
+
+Install Node using [nvm][nvm]. Use the 0.10 line of node releases.
+
+    curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+    nvm install 0.10
+    nvm alias default 0.10
+    nvm use default
+
+From NVM:
+
+> The script clones the nvm repository to ~/.nvm and adds the source line to
+> your profile (~/.bash_profile or ~/.profile).
+
+You will want to add the `nvm use default` line to your `~/.bash_profile`,
+`~/.bashrc`, or similar. From this point, you have node installed and running.
+If you have any issues, refer to the nvm docs.
+
+Install grunt-cli and bower from npm. This will make the `grunt` and `bower`
+commands available globally.
+
+    npm install --global grunt-cli bower
+
+From the project root, install the project dependencies.
+
+    npm install
+
 1. Prep the new repo
     1. Clone AngularBase NewRepo
 
@@ -80,3 +114,38 @@
         1. When all devs Approve, PR Owner can merge.
     1. Pull master - should ALWAYS be a fast forward.
 
+## Updating Code
+
+Every time you update code (eg after pulling latest master), prepare the code
+for deployment.
+
+    npm install
+    grunt deploy
+
+# Run a Local Development Server
+
+After running `grunt deploy`, the application can be run without a backend using
+stubbed data. From the project root, run:
+
+    npm start &
+
+This will start an http server on an open port (search starting at 1024), and
+prints a banner on the command line.
+
+
+## Running full feature test suite
+
+To run the entire feature test suite, run grunt from the project root.
+
+    grunt
+
+This will run nv-chrome-specific unit tests, nv-chrome dev server tests, and the
+entire nv-aloha feature test suite (using static test data).
+
+# Connecting to Alpha App
+
+After configuring and starting the [Alpha App][alohaapp], attaching the nv-chrome front end is as simple as creating a symlink from `/nv/www/aloha` to `./build/client` and navigating to [http://localhost:8000/](http://localhost:8000/). It is an alpha dev environment, so the username/password is `dev@novus.com`/`dev`.
+
+Creating the symlink probably requires root access, and might need a trip to ITSupport.
+
+[nvm]: https://github.com/creationix/nvm

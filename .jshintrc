@@ -11,12 +11,10 @@
   "unused": true,
   "latedef": true,
   "globals": {
-    "define": true,
     "require": true,
-    "$": true,
     "_": true,
     "d3": true,
     "nv": true,
-    "Backbone": true
+    "angular": true
   }
 }

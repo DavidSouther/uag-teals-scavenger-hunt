@@ -1,17 +1,23 @@
 module.exports = (grunt)->
     flatten = (a, b)-> a.concat b
 
-    module = 'angularBase'
+    module = 'angularApp'
     appFileOrdering = [
         # This array has the various file arguments in correct order.
         'src/client/main/main.coffee'
         'src/client/**/template.jade'
-        'src/client/**/directive.coffee'
+        # 'src/client/**/service.coffee'
+        # 'src/client/**/filter.coffee'
+        # 'src/client/**/controller.coffee'
+        # 'src/client/**/directive.coffee'
     ].reduce flatten, []
 
     jadeTemplateId = (filepath)->
-        filepath
-        .replace /^src\/client\/(.*)\/template.jade$/, '$1'
+        r_template = /^src\/client\/(.*)\/template.(html|jade)$/
+        path = filepath.replace r_template, '$1'
+    jadeOpts =
+        moduleName: module
+        processName: jadeTemplateId
 
     grunt.Config =
         watch:
@@ -40,9 +46,26 @@ module.exports = (grunt)->
                     src: ['src/client/**/template.jade']
                     dest: 'build/client/templates.js'
                 }]
-                options:
-                    moduleName: module
-                    processName: jadeTemplateId
+                options: jadeOpts
+        stylus:
+            options:
+                paths: [
+                    'src/client/stylus/definitions'
+                ]
+                import: [
+                    'mixins'
+                    'variables'
+                    'nib'
+                ]
+            all:
+                files:
+                    'build/client/all.css': "src/client/**/all.styl"
+            print:
+                files:
+                    'build/client/print.css': "src/client/**/print.styl"
+            screen:
+                files:
+                    'build/client/screen.css': "src/client/**/screen.styl"
 
         copy:
             client:
@@ -56,7 +79,7 @@ module.exports = (grunt)->
                 files: [
                     expand: true
                     cwd: 'bower_components'
-                    src: [ 'angular/angular.min*' ]
+                    src: [ 'angular/angular.*' ]
                     dest: 'build/client/vendors'
                 ]
 
@@ -68,35 +91,45 @@ module.exports = (grunt)->
                     'build/client/app.js': appFileOrdering
                         .filter (file)-> file.match(/\.coffee$/)
 
-        stylus:
-            client:
-                files:
-                    'build/client/styles.css': [
-                        'src/client/**/*.styl'
-                    ]
+    # butt - Browser Under Test Tools
+    butt = []
+    unless process.env['DEBUG']
+        if process.env['BAMBOO']
+            butt = ['PhantomJS']
+        else
+            butt = ['Chrome']
 
+    grunt.Config =
         karma:
             client:
                 options:
-                    browsers: [ 'PhantomJS' ]
+                    browsers: butt
                     frameworks: [ 'mocha', 'sinon-chai' ]
-                    reporters: [ 'spec' ]
-                    singleRun: true
+                    reporters: [ 'spec', 'junit', 'coverage' ]
+                    singleRun: true,
+                    logLevel: 'INFO'
                     preprocessors:
-                        'src/client/**/*.coffee': 'coffee'
-                        'src/client/**/*.jade': 'ng-html2js'
+                        # 'src/client/**/test.coffee': [ 'coffee' ]
+                        'src/client/**/*.coffee': [ 'coverage' ]
+                        'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
                     files: [
-                        'bower_components/jquery/jquery.js'
+                        # 'bower_components/jquery/jquery.js'
                         'bower_components/angular/angular.js'
+                        # 'bower_components/angular-route/angular-route.js'
+                        # 'bower_components/angular-animate/angular-animate.js'
+                        # 'bower_components/angular-cookies/angular-cookies.js'
                         'bower_components/angular-mocks/angular-mocks.js'
                         'src/client/tools/**/*'
                         appFileOrdering
                         grunt.expandFileArg('src/client', '**/')
                     ].reduce(flatten, [])
                     ngHtml2JsPreprocessor:
-                        jade: true
-                        moduleName: module
                         cacheIdFromPath: jadeTemplateId
+                    junitReporter:
+                        outputFile: 'build/reports/karma.xml'
+                    coverageReporter:
+                        type: 'lcov'
+                        dir: 'build/coverage/'
 
     grunt.registerTask 'testClient',
         'Run karma tests against the client.',
@@ -112,7 +145,7 @@ module.exports = (grunt)->
             'ngjade:templates'
             'jade:index'
             'coffee:client'
-            'stylus:client'
+            'stylus'
         ]
 
     grunt.registerTask 'client',
