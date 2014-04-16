@@ -1,15 +1,15 @@
 {
-  "name": "angular-app-base",
-  "version": "0.1.0",
-  "description": "Novus AngularJS Application Base",
+  "name": "teals-submissions",
+  "version": "0.0.0",
+  "description": "TEALS Submissions",
   "scripts": {
     "postinstall": "node ./node_modules/.bin/bower update --force --config.interactive=0 ; npm run deploy",
     "start": "node ./node_modules/.bin/supervisor -w ./src/server -e coffee ./src/deploy/start.js",
     "test": "node ./node_modules/.bin/grunt",
     "deploy": "node ./node_modules/.bin/grunt deploy"
   },
-  "author": "Novus UI Team Goat",
-  "license": "Novus Internal",
+  "author": "David Souther <davidsouther@gmail.com> (http://davidsouther.com)",
+  "license": "MIT",
   "devDependencies": {
     "bower": "~1.3.2",
     "grunt": "~0.4.4",

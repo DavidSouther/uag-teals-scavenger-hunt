@@ -19,7 +19,7 @@ Install Node using [nvm][nvm]. Use the 0.10 line of node releases.
 From NVM:
 
 > The script clones the nvm repository to ~/.nvm and adds the source line to
-> your profile (~/.bash_profile or ~/.profile).
+> your profile (`~/.bash_profile or ~/.profile`).
 
 You will want to add the `nvm use default` line to your `~/.bash_profile`,
 `~/.bashrc`, or similar. From this point, you have node installed and running.
@@ -33,11 +33,6 @@ commands available globally.
 From the project root, install the project dependencies.
 
     npm install
-
-1. Prep the new repo
-    1. Clone AngularBase NewRepo
-
-    1. remote rm origin
 
 1. Perform project Genesis
     1. Change README.md

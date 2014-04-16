@@ -1,7 +1,7 @@
 module.exports = (grunt)->
     flatten = (a, b)-> a.concat b
 
-    module = 'angularApp'
+    module = 'scavengerSubmissions'
     appFileOrdering = [
         # This array has the various file arguments in correct order.
         'src/client/main/main.coffee'
@@ -79,7 +79,11 @@ module.exports = (grunt)->
                 files: [
                     expand: true
                     cwd: 'bower_components'
-                    src: [ 'angular/angular.*' ]
+                    src: [
+                        'angular/angular.*'
+                        'angular-ui/build/**/*'
+                        'bootstrap/dist/**/*'
+                    ]
                     dest: 'build/client/vendors'
                 ]
 

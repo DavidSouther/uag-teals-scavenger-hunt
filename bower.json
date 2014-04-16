@@ -1,6 +1,5 @@
 {
-  "name": "angular-app-base",
-  "license": "Novus Internal",
+  "name": "teals-submissions",
   "private": true,
   "ignore": [
     "**/.*",
@@ -13,6 +12,8 @@
     "angular": "~1.2.15",
     "angular-cookies": "~1.2.15",
     "angular-route": "~1.2.15",
-    "angular-mocks": "~1.2.15"
+    "angular-mocks": "~1.2.15",
+    "angular-ui": "~0.4.0",
+    "bootstrap": "~3.1.1"
   }
 }

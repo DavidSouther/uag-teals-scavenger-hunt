@@ -1,4 +1,4 @@
-angular.module('angularApp', [])
+angular.module('scavengerSubmissions', [])
 
 .directive 'app', ->
     templateUrl: 'main'
