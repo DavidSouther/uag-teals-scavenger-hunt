@@ -1,0 +1,93 @@
+{
+    "scripts": {
+        "hello.py": {
+            "description": "print \"Hello, TEALS UAG!\"",
+            "points": 4
+        },
+        "count5.py": {
+            "description": "Print 1 through 5.",
+            "points": 1
+        },
+        "count10.py": {
+            "description": "Print 1 through 10.",
+            "points": 1
+        },
+        "count476.py": {
+            "description": "Print 1 through 476.",
+            "points": 2
+        },
+        "countN.py": {
+            "description": "Ask for N, then print 1 through N.",
+            "points": 3
+        },
+        "sum55.py": {
+            "description": "Sum the first 55 integers.",
+            "points": 2
+        },
+        "sum456.py": {
+            "description": "Sum the first 456 integers.",
+            "points": 2
+        },
+        "sumN.py": {
+            "description": "Ask for N, then print the sum of the first N integers.",
+            "points": 4
+        },
+        "sumAll.py": {
+            "description": "As long as the user types a number, sum it. Print the total after the first empty line.",
+            "points": 5
+        },
+        "prod8.py": {
+            "description": "Print the product of the first 8 integers.",
+            "points": 2
+        },
+        "prod55.py": {
+            "description": "Sum the first 55 integers.",
+            "points": 2
+        },
+        "prod456.py": {
+            "description": "Sum the first 456 integers.",
+            "points": 2
+        },
+        "prodN.py": {
+            "description": "Ask for N, then print the product of the first N integers.",
+            "points": 4
+        },
+        "prodAll.py": {
+            "description": "As long as the user types a number, multiply it. Print after the first empty line.",
+            "points": 5
+        },
+        "avg489.py": {
+            "description": "Calculate and print the average of 4, 8, 9",
+            "points": 2
+        },
+        "avgN.py": {
+            "description": "Ask for a number N, then ask for that many integers. Calculate and print the average.",
+            "points": 6
+        },
+        "avgAll.py": {
+            "description": "As long as the user types a number, sum it. Print the average after the first empty line.",
+            "points": 8
+        },
+
+        "roman.py": {
+            "description": "Handle integer to roman numeral, for one input.",
+            "points": 10
+        },
+        "romanTable.py": {
+            "description": "Print a table of Roman Numerals. First column is 1 through 10. Second column is 10 through 100, by 10. Third column is 100 through 1000, by 100. Use pyqb's `at`.",
+            "points": 15
+        },
+        "romanMany.py": {
+            "description": "Ask for numbers until the user enters a blank line, printing the roman numeral each time.",
+            "points": 5
+        },
+        "grade.py": {
+            "description": "Ask for a test score (1 to 100). Print out the letter grade.",
+            "points": 5
+        },
+        "gradeAll.py": {
+            "description": "Ask for several test scores. Print the number of As, Bs, Cs, etc.",
+            "points": 10
+        }
+    }
+}

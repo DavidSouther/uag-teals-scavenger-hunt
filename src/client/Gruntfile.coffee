@@ -6,10 +6,10 @@ module.exports = (grunt)->
         # This array has the various file arguments in correct order.
         'src/client/main/main.coffee'
         'src/client/**/template.jade'
-        # 'src/client/**/service.coffee'
+        'src/client/**/service.coffee'
         # 'src/client/**/filter.coffee'
         # 'src/client/**/controller.coffee'
-        # 'src/client/**/directive.coffee'
+        'src/client/**/directive.coffee'
     ].reduce flatten, []
 
     jadeTemplateId = (filepath)->
@@ -81,8 +81,11 @@ module.exports = (grunt)->
                     cwd: 'bower_components'
                     src: [
                         'angular/angular.*'
-                        'angular-ui/build/**/*'
+                        # 'angular-ui/build/**/*'
                         'bootstrap/dist/**/*'
+                        'angular-bootstrap/**/*'
+                        'angular-ui-codemirror/**/*'
+                        'codemirror/**/*'
                     ]
                     dest: 'build/client/vendors'
                 ]
