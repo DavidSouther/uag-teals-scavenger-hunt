@@ -6,7 +6,9 @@ class ScavengerCtrl
         @students = []
         @items = {}
         @$http.get('/assets/students.json').then (_)=> @students = _.data.students
-        @$http.get('/assets/scavengerhunt.json').then (_)=> @items = _.data.scripts
+        @$http.get('/assets/scavengerhunt.json').then (_)=>
+            @items = _.data.scripts
+            @itemList = @items.reduce ((a, b)->a[b.name] = b; a), {}
 
         @$scope.$watch (=>@student), (o, n)=>
             @$window.localStorage.student = @student unless o is n
@@ -22,12 +24,12 @@ class ScavengerCtrl
     handleScript: (result)->
         @invalid = false
         @script = result
-        program = @items[@file.name]
+        program = @itemList[@file.name]
         @prompt = program.description
         @points = program.points
 
     checkScriptName: (name)->
-        @items[name]?
+        @itemList[name]?
 
     reset: (soft = true)->
         @invalid = false

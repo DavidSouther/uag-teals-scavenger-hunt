@@ -8,7 +8,7 @@ html(lang='en', ng-app='scavengerSubmissions')
     title UAG TEALS Scavenger Hunt
 
     link(rel='stylesheet', href='/vendors/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/vendors/angular-ui/build/angular-ui.css')
+    //- link(rel='stylesheet', href='/vendors/angular-ui/build/angular-ui.css'
     link(rel='stylesheet', href='/vendors/codemirror/lib/codemirror.css')
     link(rel='stylesheet', href='/vendors/codemirror/theme/eclipse.css')
 
@@ -63,7 +63,7 @@ html(lang='en', ng-app='scavengerSubmissions')
                 .col-md-3.text-right
                     strong Comments
                     br
-                    | At least a couple words
+                    | Explain how you created this program.
                 .col-md-9
                     textarea.form-control(
                         rows="6"
@@ -97,14 +97,26 @@ html(lang='en', ng-app='scavengerSubmissions')
                     strong {{hunt.uploaded}}&nbsp;
                     | was uploaded successfully.
 
-        .container
+        div(ng-init="sort = null; search = ''")
             table.table.table-striped
                 tr
-                    th Name
-                    th Description
-                    th Points
-                tr(ng-repeat="(name, item) in hunt.items")
-                    td {{ name }}
+                    th(ng-click="sort = null") Program
+                    th(ng-click="sort = 'name'") Name
+                    th
+                        form.form-inline(role="form")
+                            .form-group.has-feedback.expand
+                                label.control-label(for="search") Description
+                                .pull-right
+                                    input#search.form-control.input-sm(
+                                        type="search"
+                                        placeholder="Search..."
+                                        ng-model="search"
+                                    )
+                                    span.glyphicon.glyphicon-search.form-control-feedback
+                    th(ng-click="sort = 'points'") Points
+                tr(ng-repeat="item in hunt.items | orderBy:sort | filter:search track by $id(item)")
+                    td {{ $index }}
+                    td {{ item.name }}
                     td {{ item.description }}
                     td {{ item.points }}
 
