@@ -115,7 +115,7 @@ html(lang='en', ng-app='scavengerSubmissions')
                                     span.glyphicon.glyphicon-search.form-control-feedback
                     th(ng-click="sort = 'points'") Points
                 tr(ng-repeat="item in hunt.items | orderBy:sort | filter:search track by $id(item)")
-                    td {{ $index }}
+                    td {{ $index + 1 }}
                     td {{ item.name }}
                     td {{ item.description }}
                     td {{ item.points }}

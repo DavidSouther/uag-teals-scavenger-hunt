@@ -37,7 +37,7 @@ class ScavengerCtrl
         @script = ''
         @prompt = ''
         @comments = ''
-        @student = @$window.localStorage.student unless soft
+        @student = @$window.localStorage.student || '' unless soft
 
     submit: ->
         @$http.post('/submissions', {
@@ -53,14 +53,18 @@ class ScavengerCtrl
         @$scope.$emit 'Upload Success'
         @uploadSuccess = true
         @uploaded = @file.name
-        fadeOut = ->
-            @uploadSuccess = undefined
-            @uploaded = ''
+        fadeOut = =>
+            @$scope.$apply =>
+                @uploadSuccess = undefined
+                @uploaded = ''
         @$timeout fadeOut, 2000
         @reset()
 
     failure: (err)->
         @$scope.$emit "Upload Failed"
+
+ScavengerCtrl.$inject = ['fileReader', '$scope', '$http', '$timeout', '$window']
+
 
 angular.module('scavengerSubmissions')
 .controller ScavengerCtrl.name, ScavengerCtrl
