@@ -29,7 +29,7 @@ html(lang='en', ng-app='scavengerSubmissions')
             h3.text-muted
               | UAG TEALS Scavenger Hunt
 
-        .jumbotron
+        .jumbotron.hidden-print
             .row
                 .col-md-2.text-right
                     label(for='name') Name
@@ -106,7 +106,7 @@ html(lang='en', ng-app='scavengerSubmissions')
                         form.form-inline(role="form")
                             .form-group.has-feedback.expand
                                 label.control-label(for="search") Description
-                                .pull-right
+                                .pull-right.hidden-print
                                     input#search.form-control.input-sm(
                                         type="search"
                                         placeholder="Search..."
@@ -114,11 +114,13 @@ html(lang='en', ng-app='scavengerSubmissions')
                                     )
                                     span.glyphicon.glyphicon-search.form-control-feedback
                     th(ng-click="sort = 'points'") Points
+                    th.visible-print(width='10%') Finished
                 tr(ng-repeat="item in hunt.items | orderBy:sort | filter:search track by $id(item)")
                     td {{ $index + 1 }}
                     td {{ item.name }}
                     td {{ item.description }}
                     td {{ item.points }}
+                    td.visible-print
 
     script(src="/app.js")
     script(src="/templates.js")
