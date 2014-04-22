@@ -91,7 +91,7 @@ html(lang='en', ng-app='scavengerSubmissions')
             .row(ng-show="hunt.invalid")
                 .col-md-12.alert.alert-danger
                     strong {{hunt.file.name}}&nbsp;
-                    | is not a valid program.
+                    | is not a scaveger hunt program. (Is the filename capitalized correctly?)
             .row(ng-show="hunt.uploadSuccess")
                 .col-md-12.alert.alert-success
                     strong {{hunt.uploaded}}&nbsp;
