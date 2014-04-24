@@ -16,5 +16,5 @@ fileInput = ($parse)->
         scope.$watch modelGet, (newVal)->
             element[0].value = "" unless newVal
 
-angular.module('scavengerSubmissions')
+angular.module('teals.scavenger.fileInput', [])
 .directive 'fileInput', fileInput

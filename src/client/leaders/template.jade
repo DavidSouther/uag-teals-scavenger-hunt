@@ -1,0 +1,10 @@
+h4  Leaderboard
+table
+    tr
+        th Leader
+        th Programs
+        th Points
+    tr(ng-repeat="(name, programs) in leaders.leaders")
+        td {{name}}
+        td {{programs}}
+        td

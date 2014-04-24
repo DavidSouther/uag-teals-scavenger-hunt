@@ -1,5 +1,5 @@
 doctype html5
-html(lang='en', ng-app='scavengerSubmissions')
+html(lang='en', ng-app='teals.scavenger')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
@@ -17,111 +17,25 @@ html(lang='en', ng-app='scavengerSubmissions')
     link(rel='stylesheet', href='/print.css', media="print")
 
     script(src="/vendors/angular/angular.min.js")
+    script(src="/vendors/angular-route/angular-route.min.js")
     //- script(src="/vendors/angular-ui/build/angular-ui.js")
     script(src="/vendors/codemirror/lib/codemirror.js")
     script(src="/vendors/codemirror/mode/python/python.js")
     script(src="/vendors/angular-bootstrap/ui-bootstrap.js")
     script(src="/vendors/angular-bootstrap/ui-bootstrap-tpls.js")
     script(src="/vendors/angular-ui-codemirror/ui-codemirror.js")
-  body(ng-controller="ScavengerCtrl as hunt")
+  body
     .container
         .header
             h3.text-muted
-              | UAG TEALS Scavenger Hunt
+                | UAG TEALS Scavenger Hunt
+                .pull-right
+                    a(href='/leaderboard') Leaders
+                    | &nbsp;
+                    a(href='/') Submit
 
-        .jumbotron.hidden-print
-            .row
-                .col-md-2.text-right
-                    label(for='name') Name
-                .col-md-10
-                    input.form-control#name(
-                        type="text"
-                        autocomplete="off"
-                        required
-                        placeholder="name"
-                        ng-model="hunt.student"
-                        ng-model-options="{ updateOn: 'blur' }"
-                        typeahead="student for student in hunt.students | filter:$viewValue"
-                    )
-            .row
-                .col-md-2.text-right
-                    label.text-right(for='file') File
-                .col-md-10
-                    div.form-control#file(
-                        accept=".py"
-                        file-input='hunt.file'
-                        on-change='hunt.loadScript()'
-                    )
-            .row(ng-show="hunt.file.name && !hunt.invalid")
-                .col-md-2.text-right
-                    strong {{hunt.file.name}}
-                .col-md-2
-                    strong {{hunt.points}} Point{{ hunt.point > 0 ? 's' : '' }}
-                .col-md-8
-                    pre {{hunt.prompt}}
-            .row(ng-show="hunt.file.name && !hunt.invalid")
-                .col-md-3.text-right
-                    strong Comments
-                    br
-                    | Explain how you created this program.
-                .col-md-9
-                    textarea.form-control(
-                        rows="6"
-                        ng-model="hunt.comments"
-                    )
+        ng-view
+        huntlist
 
-            .row(ng-show="hunt.file.name && !hunt.invalid")
-                .col-md-12
-                    ui-codemirror(
-                         ui-codemirror-opts="{\
-                            lineWrapping: false,\
-                            lineNumbers: true,\
-                            readOnly: true,\
-                            mode: 'python'\
-                         }"
-                         ng-model="hunt.script"
-                    )
-
-            .row(ng-show="hunt.student && hunt.comments.length > 15")
-                button.btn.btn-primary(
-                    type="button"
-                    ng-click="hunt.submit()"
-                ) Submit
-
-            .row(ng-show="hunt.invalid")
-                .col-md-12.alert.alert-danger
-                    strong {{hunt.file.name}}&nbsp;
-                    | is not a scaveger hunt program. (Is the filename capitalized correctly?)
-            .row(ng-show="hunt.uploadSuccess")
-                .col-md-12.alert.alert-success
-                    strong {{hunt.uploaded}}&nbsp;
-                    | was uploaded successfully.
-
-        div(ng-init="sort = null; search = ''")
-            table.table.table-striped
-                tr
-                    th(ng-click="sort = null") Program
-                    th(ng-click="sort = 'name'") Name
-                    th
-                        form.form-inline(role="form")
-                            .form-group.has-feedback.expand
-                                label.control-label(for="search") Description
-                                .pull-right.hidden-print
-                                    input#search.form-control.input-sm(
-                                        type="search"
-                                        placeholder="Search..."
-                                        ng-model="search"
-                                    )
-                                    span.glyphicon.glyphicon-search.form-control-feedback
-                    th(ng-click="sort = 'points'") Points
-                    th.visible-print(width='10%') Finished
-                tr(ng-repeat="item in hunt.items | orderBy:sort | filter:search track by $id(item)")
-                    td {{ $index + 1 }}
-                    td {{ item.name }}
-                    td {{ item.description }}
-                    td {{ item.points }}
-                    td.visible-print
-
-    script(src="/app.js")
     script(src="/templates.js")
-
+    script(src="/app.js")

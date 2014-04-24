@@ -38,7 +38,7 @@ fileReader = ($q) ->
 
     {readAsText}
 
-angular.module('scavengerSubmissions').factory "fileReader", [
+angular.module('teals.scavenger.fileReader', []).factory "fileReader", [
     "$q"
     fileReader
 ]

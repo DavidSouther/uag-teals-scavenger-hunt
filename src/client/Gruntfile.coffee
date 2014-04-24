@@ -1,23 +1,25 @@
 module.exports = (grunt)->
     flatten = (a, b)-> a.concat b
 
-    module = 'scavengerSubmissions'
+    module = 'teals.scavenger'
     appFileOrdering = [
-        # This array has the various file arguments in correct order.
-        'src/client/main/main.coffee'
-        'src/client/**/template.jade'
-        'src/client/**/service.coffee'
-        # 'src/client/**/filter.coffee'
-        # 'src/client/**/controller.coffee'
-        'src/client/**/directive.coffee'
-    ].reduce flatten, []
+        '**/template.jade'
+
+        '**/service.coffee'
+        '**/directive.coffee'
+        '**/main.coffee'
+    ].map((a)->"src/client/#{a}").reduce flatten, []
 
     jadeTemplateId = (filepath)->
         r_template = /^src\/client\/(.*)\/template.(html|jade)$/
         path = filepath.replace r_template, '$1'
+    jadeTemplateModule = (filepath)->
+        r_template = /^src\/client\/(.*)\/template.(html|jade)$/
+        path = filepath.replace r_template, 'teals.$1.template'
     jadeOpts =
-        moduleName: module
+        moduleName: 'teals.templates'
         processName: jadeTemplateId
+        newModule: true
 
     grunt.Config =
         watch:
@@ -81,6 +83,7 @@ module.exports = (grunt)->
                     cwd: 'bower_components'
                     src: [
                         'angular/angular.*'
+                        'angular-route/angular*'
                         # 'angular-ui/build/**/*'
                         'bootstrap/dist/**/*'
                         'angular-bootstrap/**/*'
@@ -106,6 +109,15 @@ module.exports = (grunt)->
         else
             butt = ['Chrome']
 
+    preprocessors =
+        'src/client/**/*test.coffee': [ 'coffee' ]
+        'src/client/tools/*.coffee': [ 'coffee' ]
+        'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
+
+    for type in appFileOrdering
+        if type.indexOf('.coffee') > -1
+            preprocessors[type] = ['coverage']
+
     grunt.Config =
         karma:
             client:
@@ -115,14 +127,11 @@ module.exports = (grunt)->
                     reporters: [ 'spec', 'junit', 'coverage' ]
                     singleRun: true,
                     logLevel: 'INFO'
-                    preprocessors:
-                        # 'src/client/**/test.coffee': [ 'coffee' ]
-                        'src/client/**/*.coffee': [ 'coverage' ]
-                        'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
+                    preprocessors: preprocessors
                     files: [
                         # 'bower_components/jquery/jquery.js'
                         'bower_components/angular/angular.js'
-                        # 'bower_components/angular-route/angular-route.js'
+                        'bower_components/angular-route/angular-route.js'
                         # 'bower_components/angular-animate/angular-animate.js'
                         # 'bower_components/angular-cookies/angular-cookies.js'
                         'bower_components/angular-mocks/angular-mocks.js'
@@ -132,6 +141,7 @@ module.exports = (grunt)->
                     ].reduce(flatten, [])
                     ngHtml2JsPreprocessor:
                         cacheIdFromPath: jadeTemplateId
+                        moduleName: 'teals.templates'
                     junitReporter:
                         outputFile: 'build/reports/karma.xml'
                     coverageReporter:

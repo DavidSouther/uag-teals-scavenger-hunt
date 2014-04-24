@@ -5,7 +5,7 @@ module.exports = (grunt)->
     grunt.expandFileArg = (
         prefix = '.',
         base = '**',
-        postfix = 'test.coffee'
+        postfix = '*test.coffee'
     )->
         part = (v)->"#{prefix}/#{v}#{postfix}"
         files = grunt.option('files')

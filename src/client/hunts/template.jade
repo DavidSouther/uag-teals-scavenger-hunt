@@ -1,0 +1,24 @@
+.hunts(ng-init="sort = null; search = ''")
+    table.table.table-striped
+        tr
+            th(ng-click="sort = null") Program
+            th(ng-click="sort = 'name'") Name
+            th
+                form.form-inline(role="form")
+                    .form-group.has-feedback.expand
+                        label.control-label(for="search") Description
+                        .pull-right.hidden-print
+                            input#search.form-control.input-sm(
+                                type="search"
+                                placeholder="Search..."
+                                ng-model="search"
+                            )
+                            span.glyphicon.glyphicon-search.form-control-feedback
+            th(ng-click="sort = 'points'") Points
+            th.visible-print(width='10%') Finished
+        tr(ng-repeat="item in hunt.itemList | orderBy:sort | filter:search track by $id(item)")
+            td {{ $index + 1 }}
+            td {{ item.name }}
+            td {{ item.description }}
+            td {{ item.points }}
+            td.visible-print

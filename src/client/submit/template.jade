@@ -1,0 +1,67 @@
+.jumbotron.hidden-print
+    .row
+        .col-md-2.text-right
+            label(for='name') Name
+        .col-md-10
+            input.form-control#name(
+                type="text"
+                autocomplete="off"
+                required
+                placeholder="name"
+                ng-model="hunt.student"
+                ng-model-options="{ updateOn: 'blur' }"
+                typeahead="student for student in hunt.students.students | filter:$viewValue"
+            )
+    .row
+        .col-md-2.text-right
+            label.text-right(for='file') File
+        .col-md-10
+            div.form-control#file(
+                accept=".py"
+                file-input='hunt.file'
+                on-change='hunt.loadScript()'
+            )
+    .row(ng-show="hunt.file.name && !hunt.invalid")
+        .col-md-2.text-right
+            strong {{hunt.file.name}}
+        .col-md-2
+            strong {{hunt.points}} Point{{ hunt.point > 0 ? 's' : '' }}
+        .col-md-8
+            pre {{hunt.prompt}}
+    .row(ng-show="hunt.file.name && !hunt.invalid")
+        .col-md-3.text-right
+            strong Comments
+            br
+            | Explain how you created this program.
+        .col-md-9
+            textarea.form-control(
+                rows="6"
+                ng-model="hunt.comments"
+            )
+
+    .row(ng-show="hunt.file.name && !hunt.invalid")
+        .col-md-12
+            ui-codemirror(
+                 ui-codemirror-opts="{\
+                    lineWrapping: false,\
+                    lineNumbers: true,\
+                    readOnly: true,\
+                    mode: 'python'\
+                 }"
+                 ng-model="hunt.script"
+            )
+
+    .row(ng-show="hunt.student && hunt.comments.length > 15")
+        button.btn.btn-primary(
+            type="button"
+            ng-click="hunt.submit()"
+        ) Submit
+
+    .row(ng-show="hunt.invalid")
+        .col-md-12.alert.alert-danger
+            strong {{hunt.file.name}}&nbsp;
+            | is not a scaveger hunt program. (Is the filename capitalized correctly?)
+    .row(ng-show="hunt.uploadSuccess")
+        .col-md-12.alert.alert-success
+            strong {{hunt.uploaded}}&nbsp;
+            | was uploaded successfully.
