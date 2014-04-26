@@ -1,5 +1,4 @@
 describe 'Submissions', ->
-    localStorage = {}
     countScript = 'for i in range(1, 6):\n\tprint i\n'
     mockFileReader =
         readAsText: (file, scope)->
@@ -27,9 +26,15 @@ describe 'Submissions', ->
         replace: true
         terminal: true
         priority: 10000
+    .directive 'input', ->
+        restrict: 'E'
+        template: '<span></span>'
+        replace: true
+        terminal: true
+        priority: 10000
 
     testOverride = ($provide)->
-        $provide.value '$window', {localStorage}
+        # $provide.value '$window', {localStorage}
         $provide.value 'fileReader', mockFileReader
         $provide.value 'students',
             students: ['David Souther', 'Thomas Bijesse']
@@ -61,6 +66,11 @@ describe 'Submissions', ->
         'teals.fileInput.directive.override'
         testOverride
     ))
+
+    localStorage = null
+    beforeEach inject ($window)->
+        localStorage = $window.localStorage
+        $window.localStorage.clear()
 
     describe 'controller', ->
         ctrl = scope = $httpBackend = $timeout = undefined
@@ -117,8 +127,6 @@ describe 'Submissions', ->
 
     describe 'directive', ->
         it 'renders', ->
-            debugger
             $element = render 'submissions'
-            after -> console.log $element
             should.exist $element, 'Element rendered'
             $element.find('div').length.should.be.greaterThan 3

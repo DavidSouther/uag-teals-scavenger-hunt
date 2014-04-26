@@ -4,6 +4,7 @@ angular.module('teals.scavenger', [
     'ui.codemirror'
     'teals.submissions.directive'
     'teals.hunts.directive'
+    'teals.nav.directive'
     'teals.templates'
 ]).config (
     $routeProvider,

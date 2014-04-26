@@ -23,15 +23,28 @@ module.exports = ->
 
     @When /type "([^"]*)" into the "([^"]*)"/, (text, field)=>
         selector = mappings[field]
-        @world.driver.findElement(By.css(selector))
+        @world.find(selector)
         .sendKeys(text)
         .then => @protractor.waitForAngular()
 
+    @When /click(?: the)? "([^"]+)"/, (link)->
+        selector = mappings[link] + " a"
+        @world.find(selector)
+        .click().then => @protractor.waitForAngular()
+
     @Then /should see "([^"]+)" in the "([^"]*)"/, (text, field)=>
         selector = mappings[field]
-        @world.driver.findElement(By.css(selector))
+        @world.find(selector)
         .getText (element)->
             element.should.equal text
+
+    @Then /"([^"]*)" should have links/, (nav, links)=>
+        selector = mappings[nav]
+        @world.find(selector)
+        .getText (elementText)->
+            console.log "Text is `#{elementText}`"
+            links.split('\n').forEach (linkText)->
+                elementText.indexOf(linkText).shoud.be.greaterThan -1
 
     @Then /"([^"]*)" should have several rows/, (table)=>
         selector = mappings[table] + ' tr'
