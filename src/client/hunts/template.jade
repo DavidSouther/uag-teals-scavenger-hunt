@@ -1,8 +1,14 @@
-.hunts(ng-init="sort = null; search = ''")
+.hunts(ng-init="sort = 'id'; order = {}; search = ''")
     table.table.table-striped
         tr
-            th(ng-click="sort = null") Program
-            th(ng-click="sort = 'name'") Name
+            th(
+                ng-init="order.id = true"
+                ng-click="sort = 'id'; order.id = !order.id"
+            ) Program
+            th(
+                ng-init="order.name = true"
+                ng-click="sort = 'name' ; order.name = !order.name"
+            ) Name
             th
                 form.form-inline(role="form")
                     .form-group.has-feedback.expand
@@ -14,10 +20,13 @@
                                 ng-model="search"
                             )
                             span.glyphicon.glyphicon-search.form-control-feedback
-            th(ng-click="sort = 'points'") Points
+            th(
+                ng-init="order.name = true"
+                ng-click="sort = 'points' ; order.points = !order.points"
+            ) Points
             th.visible-print(width='10%') Finished
-        tr(ng-repeat="item in hunt.itemList | orderBy:sort | filter:search track by $id(item)")
-            td {{ $index + 1 }}
+        tr(ng-repeat="item in hunt.itemList | orderBy:sort:order[sort] | filter:search")
+            td {{ item.id }}
             td {{ item.name }}
             td {{ item.description }}
             td {{ item.points }}

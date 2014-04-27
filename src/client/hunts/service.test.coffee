@@ -26,6 +26,7 @@ describe 'Scavenger Hunts', ->
             should.exist huntservice.items
             $httpBackend.flush()
             Object.keys(huntservice.items).length.should.equal 2
+            huntservice.itemList[1].id.should.equal 2
 
         it 'checks files', inject (huntservice)->
             $httpBackend.flush()

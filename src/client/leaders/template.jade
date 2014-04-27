@@ -1,25 +1,29 @@
 .jumbotron
     h4  Leaderboard
-    table.table.table-striped(ng-init="order = 'name'")
+    table.table.table-striped(ng-init="order = 'name' ; direction = {}")
         tr
             th(
                 width="35%"
-                ng-click="order = 'name'"
+                ng-init="direction.name = true"
+                ng-click="order = 'name' ; direction.name = !direction.name"
             ) Leader
             th(
                 width="35%"
-                ng-click="order = 'finished'"
+                ng-init="direction.finished = true"
+                ng-click="order = 'finished' ; direction.finished = !direction.finished"
             ) Programs
             th(
                 width="15%"
-                ng-click="order = 'points'"
+                ng-init="direction.points = true"
+                ng-click="order = 'points' ; direction.points = !direction.points"
             ) Points
             th(
                 width="15%"
-                ng-click="order = 'tickets'"
+                ng-init="direction.tickets = true"
+                ng-click="order = 'tickets' ; direction.tickets = !direction.tickets"
             ) Tickets
         tr(
-            ng-repeat="leader in leaders.leaders | orderBy:order"
+            ng-repeat="leader in leaders.leaders | orderBy:order:direction[order]"
             ng-init="expandProgramList = false"
         ).leader
             td {{ leader.name | expandName}}
