@@ -2,7 +2,6 @@ describe 'Nav', ->
     beforeEach module 'teals.nav.directive'
 
     describe 'controller', ->
-        debugger
         describe 'sets page state.', ->
             controller = null
             beforeEach inject ($controller, $rootScope)->

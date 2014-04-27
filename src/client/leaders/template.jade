@@ -1,10 +1,13 @@
-h4  Leaderboard
-table
-    tr
-        th Leader
-        th Programs
-        th Points
-    tr(ng-repeat="(name, programs) in leaders.leaders")
-        td {{name}}
-        td {{programs}}
-        td
+.jumbotron
+    h4  Leaderboard
+    table.table.table-striped
+        tr
+            th Leader
+            th Programs
+            th Points
+        tr(ng-repeat="(name, programs) in leaders.leaders")
+            td {{name}}
+            td
+                span.program._name(ng-repeat="filename in programs.programs")
+                    | {{filename}}
+            td {{ programs.points }}

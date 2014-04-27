@@ -2,6 +2,7 @@ angular.module('teals.scavenger', [
     'ngRoute'
     'ui.bootstrap'
     'ui.codemirror'
+    'teals.leaders.directive'
     'teals.submissions.directive'
     'teals.hunts.directive'
     'teals.nav.directive'
