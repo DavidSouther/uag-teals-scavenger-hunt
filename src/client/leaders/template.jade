@@ -5,22 +5,18 @@
             tr
                 th(
                     width="35%"
-                    ng-init="direction.name = false"
                     ng-click="order = 'name' ; direction.name = !direction.name"
                 ) Leader
                 th(
                     width="35%"
-                    ng-init="direction.finished = true"
                     ng-click="order = 'finished' ; direction.finished = !direction.finished"
                 ) Programs
                 th(
                     width="15%"
-                    ng-init="direction.points = true"
                     ng-click="order = 'points' ; direction.points = !direction.points"
                 ) Points
                 th(
                     width="15%"
-                    ng-init="direction.tickets = true"
                     ng-click="order = 'tickets' ; direction.tickets = !direction.tickets"
                 ) Tickets
         tbody
