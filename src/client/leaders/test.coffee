@@ -22,15 +22,24 @@ describe 'Leaders', ->
         it 'loads the leaderboard', inject (leaderservice)->
             should.exist leaderservice.leaders
             $httpBackend.flush()
-            leaderservice.leaders
-            .should.have.property('DavidSouther')
-            .with.property('programs')
-            .with.length 2
+            leader = leaderservice.leaders[0]
+            leader.name.should.equal 'DavidSouther'
+            leader.programs.length.should.equal 2
 
         it 'calculates points in the leaderboard', inject (leaderservice)->
             $httpBackend.flush()
-            leaderservice.leaders.DavidSouther.points
-            .should.equal 1
+            leaderservice.leaders[0].points.should.equal 1
+            leaderservice.leaders[0].tickets.should.equal 1
+
+    describe 'filter', ->
+        beforeEach module 'teals.leaders.service'
+
+        it 'expands names correctly', inject ($filter)->
+            $filter('expandName')('DavidSouther')
+            .should.equal 'David Souther'
+
+            $filter('expandName')('KylanBarrajanos Powe')
+            .should.equal 'Kylan Barrajanos Powe'
 
     describe.skip 'Controller', ->
         beforeEach 'teals.leaders.directive', ($provide)->
@@ -46,4 +55,3 @@ describe 'Leaders', ->
             $element = render 'leaders'
             should.exist $element
             $element.find('td').length.should.be.greaterThan 1
-

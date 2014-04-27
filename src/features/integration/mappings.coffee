@@ -4,3 +4,4 @@ module.exports =
 
     'top nav': 'topnav'
     'hunt table': 'huntlist table'
+    'leaderboard': 'leaders table'

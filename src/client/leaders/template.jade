@@ -1,16 +1,36 @@
 .jumbotron
     h4  Leaderboard
-    table.table.table-striped
+    table.table.table-striped(ng-init="order = 'name'")
         tr
-            th Leader
-            th Programs
-            th Points
-        tr(ng-repeat="(name, programs) in leaders.leaders")
-            td {{name}}
-            td
-                ul
-                    li.program._name(
-                        ng-repeat="filename in programs.programs"
+            th(
+                width="35%"
+                ng-click="order = 'name'"
+            ) Leader
+            th(
+                width="35%"
+                ng-click="order = 'finished'"
+            ) Programs
+            th(
+                width="15%"
+                ng-click="order = 'points'"
+            ) Points
+            th(
+                width="15%"
+                ng-click="order = 'tickets'"
+            ) Tickets
+        tr(
+            ng-repeat="leader in leaders.leaders | orderBy:order"
+            ng-init="expandProgramList = false"
+        ).leader
+            td {{ leader.name | expandName}}
+            td._programs(
+                ng-click="expandProgramList = !expandProgramList"
+            )
+                b(ng-init="l = leader.finished") {{ l }} program{{ l > 1 ? 's' : ''}}
+                ul.programs(ng-show="expandProgramList")
+                    li._name(
+                        ng-repeat="filename in leader.programs"
                     )
-                        | {{filename}}
-            td {{ programs.points }}
+                        | {{ filename }}
+            td {{ leader.points }}
+            td {{ leader.tickets }}
