@@ -1,40 +1,42 @@
 .jumbotron
     h4  Leaderboard
     table.table.table-striped(ng-init="order = 'name' ; direction = {}")
-        tr
-            th(
-                width="35%"
-                ng-init="direction.name = true"
-                ng-click="order = 'name' ; direction.name = !direction.name"
-            ) Leader
-            th(
-                width="35%"
-                ng-init="direction.finished = true"
-                ng-click="order = 'finished' ; direction.finished = !direction.finished"
-            ) Programs
-            th(
-                width="15%"
-                ng-init="direction.points = true"
-                ng-click="order = 'points' ; direction.points = !direction.points"
-            ) Points
-            th(
-                width="15%"
-                ng-init="direction.tickets = true"
-                ng-click="order = 'tickets' ; direction.tickets = !direction.tickets"
-            ) Tickets
-        tr(
-            ng-repeat="leader in leaders.leaders | orderBy:order:direction[order]"
-            ng-init="expandProgramList = false"
-        ).leader
-            td {{ leader.name | expandName}}
-            td._programs(
-                ng-click="expandProgramList = !expandProgramList"
-            )
-                b(ng-init="l = leader.finished") {{ l }} program{{ l > 1 ? 's' : ''}}
-                ul.programs(ng-show="expandProgramList")
-                    li._name(
-                        ng-repeat="filename in leader.programs"
-                    )
-                        | {{ filename }}
-            td {{ leader.points }}
-            td {{ leader.tickets }}
+        thead
+            tr
+                th(
+                    width="35%"
+                    ng-init="direction.name = false"
+                    ng-click="order = 'name' ; direction.name = !direction.name"
+                ) Leader
+                th(
+                    width="35%"
+                    ng-init="direction.finished = true"
+                    ng-click="order = 'finished' ; direction.finished = !direction.finished"
+                ) Programs
+                th(
+                    width="15%"
+                    ng-init="direction.points = true"
+                    ng-click="order = 'points' ; direction.points = !direction.points"
+                ) Points
+                th(
+                    width="15%"
+                    ng-init="direction.tickets = true"
+                    ng-click="order = 'tickets' ; direction.tickets = !direction.tickets"
+                ) Tickets
+        tbody
+            tr(
+                ng-repeat="leader in leaders.leaders | orderBy:order:direction[order]"
+                ng-init="expandProgramList = false"
+            ).leader
+                td {{ leader.name | expandName}}
+                td._programs(
+                    ng-click="expandProgramList = !expandProgramList"
+                )
+                    b(ng-init="l = leader.finished") {{ l }} program{{ l > 1 ? 's' : ''}}
+                    ul.programs(ng-show="expandProgramList")
+                        li._name(
+                            ng-repeat="filename in leader.programs"
+                        )
+                            | {{ filename }}
+                td {{ leader.points }}
+                td {{ leader.tickets }}

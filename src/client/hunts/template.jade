@@ -1,33 +1,35 @@
 .hunts(ng-init="sort = 'id'; order = {}; search = ''")
     table.table.table-striped
-        tr
-            th(
-                ng-init="order.id = true"
-                ng-click="sort = 'id'; order.id = !order.id"
-            ) Program
-            th(
-                ng-init="order.name = true"
-                ng-click="sort = 'name' ; order.name = !order.name"
-            ) Name
-            th
-                form.form-inline(role="form")
-                    .form-group.has-feedback.expand
-                        label.control-label(for="search") Description
-                        .pull-right.hidden-print
-                            input#search.form-control.input-sm(
-                                type="search"
-                                placeholder="Search..."
-                                ng-model="search"
-                            )
-                            span.glyphicon.glyphicon-search.form-control-feedback
-            th(
-                ng-init="order.name = true"
-                ng-click="sort = 'points' ; order.points = !order.points"
-            ) Points
-            th.visible-print(width='10%') Finished
-        tr(ng-repeat="item in hunt.itemList | orderBy:sort:order[sort] | filter:search")
-            td {{ item.id }}
-            td {{ item.name }}
-            td {{ item.description }}
-            td {{ item.points }}
-            td.visible-print
+        thead
+            tr
+                th(
+                    ng-init="order.id = false"
+                    ng-click="sort = 'id'; order.id = !order.id"
+                ) Program
+                th(
+                    ng-init="order.name = true"
+                    ng-click="sort = 'name' ; order.name = !order.name"
+                ) Name
+                th
+                    form.form-inline(role="form")
+                        .form-group.has-feedback.expand
+                            label.control-label(for="search") Description
+                            .pull-right.hidden-print
+                                input#search.form-control.input-sm(
+                                    type="search"
+                                    placeholder="Search..."
+                                    ng-model="search"
+                                )
+                                span.glyphicon.glyphicon-search.form-control-feedback
+                th(
+                    ng-init="order.name = true"
+                    ng-click="sort = 'points' ; order.points = !order.points"
+                ) Points
+                th.visible-print(width='10%') Finished
+        tbody
+            tr(ng-repeat="item in hunt.itemList | orderBy:sort:order[sort] | filter:search")
+                td {{ item.id }}
+                td {{ item.name }}
+                td {{ item.description }}
+                td {{ item.points }}
+                td.visible-print
