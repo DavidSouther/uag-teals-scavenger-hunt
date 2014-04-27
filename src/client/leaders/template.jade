@@ -8,6 +8,9 @@
         tr(ng-repeat="(name, programs) in leaders.leaders")
             td {{name}}
             td
-                span.program._name(ng-repeat="filename in programs.programs")
-                    | {{filename}}
+                ul
+                    li.program._name(
+                        ng-repeat="filename in programs.programs"
+                    )
+                        | {{filename}}
             td {{ programs.points }}
