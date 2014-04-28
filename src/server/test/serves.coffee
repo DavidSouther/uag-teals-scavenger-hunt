@@ -4,7 +4,7 @@ process.env.LOG_LEVEL = 'WARN'
 request = require("supertest")(server.express)
 
 describe "Server", ->
-    describe "index.html", (done)->
+    describe "index.html", ->
         it "returns an index", (done)->
             request.get('/index.html')
             .expect(200)

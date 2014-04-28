@@ -4,10 +4,9 @@ module.exports = (grunt)->
     module = 'teals.scavenger'
     appFileOrdering = [
         '**/template.jade'
-
+        '**/main.coffee'
         '**/service.coffee'
         '**/directive.coffee'
-        '**/main.coffee'
     ].map((a)->"src/client/#{a}").reduce flatten, []
 
     jadeTemplateId = (filepath)->

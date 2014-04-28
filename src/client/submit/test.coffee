@@ -85,7 +85,7 @@ describe 'Submissions', ->
 
             $httpBackend = $injector.get('$httpBackend')
             $httpBackend.whenPOST('/submissions')
-            .respond 200, '{"status": "Success"}'
+            .respond 200, '{"status": "success", "log": ""}'
 
         it 'instantiates', ->
             should.exist ctrl
@@ -115,8 +115,6 @@ describe 'Submissions', ->
             ctrl.submit()
             $httpBackend.flush()
             ctrl.uploadSuccess.should.equal true
-            $timeout.flush()
-            should.not.exist ctrl.uploadSuccess
 
         it 'saves current student', inject (students)->
             scope.$apply -> ctrl.student = students.students[0]

@@ -42,23 +42,34 @@ class SubmissionsCtrl
             file: @file.name
             script: "'''\n#{@comments}\n'''\n#{@script}"
         }).then(
-            (_)=> @success(_)
-            (_)=> @failure(_)
+            (_)=>
+                if _.data.status is 'success'
+                    @success(_.data)
+                else
+                    @failure(_.data)
+            (_)=> @error(_)
         )
 
-    success: (confirm)->
+    success: ->
         @$scope.$emit 'Upload Success'
         @uploadSuccess = true
         @uploaded = @file.name
-        fadeOut = =>
-            @$scope.$apply =>
-                @uploadSuccess = undefined
-                @uploaded = ''
-        @$timeout fadeOut, 5000
         @reset()
 
-    failure: (err)->
-        @$scope.$emit "Upload Failed"
+    failure: ({code, log})->
+        @uploadError = true
+        @uploaded = @file.name
+        @errorLog = log
+        @reset
+
+    error: (err)->
+        @$scope.$emit "Upload Error"
+
+    clearAlerts: ->
+        @uploadSuccess = false
+        @uploadError = false
+        @uploaded = ''
+        @errorLog = ''
 
 SubmissionsCtrl.$inject = [
     'fileReader'

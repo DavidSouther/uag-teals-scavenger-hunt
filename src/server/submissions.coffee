@@ -2,6 +2,7 @@ fs = require('fs')
 path = require('path')
 rawBody = require('raw-body')
 [winston, logger] = require './logger'
+runner = require './runner'
 
 submissions = 'submissions'
 try
@@ -18,7 +19,8 @@ putFile = (script, cb)->
         opts = {mode: 0o774}
         fs.writeFile filename, script.script, opts, (err)->
             return cb(err) if err
-            cb()
+            runner filename, (code, log)->
+                cb null, code, log
 
 handler = (req, res, next)->
     return next() unless req.path is '/submissions'
@@ -28,8 +30,14 @@ handler = (req, res, next)->
             req.body = JSON.parse(string)
         catch err
             return next(err)
-        putFile req.body, (err)->
+        putFile req.body, (err, code, log)->
             return next(err) if err
-            res.send(200, '{"status": "Success"}')
+            status =
+                if code is 1
+                    'failure'
+                else
+                    'success'
+            response = {code, status, log}
+            res.send(200, JSON.stringify response)
 
 module.exports = handler
