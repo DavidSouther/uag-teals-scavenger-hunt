@@ -4,7 +4,7 @@ angular.module('th.sort', [
     restrict: 'A'
     replace: false
     transclude: true
-    templateUrl: 'thsort'
+    templateUrl: 'util/thsort'
     scope: {}
     link: ($scope, $element, $attrs)->
         field = $scope.field = $attrs['sort']

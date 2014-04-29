@@ -13,6 +13,6 @@ angular.module('teals.hunts.directive', [
 .controller(HuntsCtrl.name, HuntsCtrl)
 .directive 'huntlist', ->
     restrict: 'EA'
-    templateUrl: 'hunts'
+    templateUrl: 'scavenge/hunts'
     controller: HuntsCtrl.name
     controllerAs: 'hunt'

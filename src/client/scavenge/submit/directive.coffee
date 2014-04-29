@@ -91,6 +91,6 @@ angular.module('teals.submissions.directive', [
 .controller(SubmissionsCtrl.name, SubmissionsCtrl)
 .directive 'submissions', ->
     restrict: 'EA'
-    templateUrl: 'submit'
+    templateUrl: 'scavenge/submit'
     controller: SubmissionsCtrl.name
     controllerAs: 'hunt'

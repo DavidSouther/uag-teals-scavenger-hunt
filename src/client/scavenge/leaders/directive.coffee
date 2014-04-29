@@ -52,6 +52,6 @@ angular.module('teals.leaders.directive', [
 .controller('LeadersCtrl', LeadersCtrl)
 .directive 'leaders', ->
     restrict: 'EA'
-    templateUrl: 'leaders'
+    templateUrl: 'scavenge/leaders'
     controller: 'LeadersCtrl'
     controllerAs: 'leaders'
