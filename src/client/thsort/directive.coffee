@@ -1,0 +1,19 @@
+angular.module('th.sort', [
+    'teals.templates'
+]).directive 'sort', ->
+    restrict: 'A'
+    replace: false
+    transclude: true
+    templateUrl: 'thsort'
+    scope: {}
+    link: ($scope, $element, $attrs)->
+        field = $scope.field = $attrs['sort']
+        $parent = $scope.$parent
+        $element.on 'click', -> $scope.$apply ->
+            $parent.order = field
+            $parent.direction[field] = !$parent.direction[field]
+            $scope.direction =
+                if $parent.direction[field]
+                    'up'
+                else
+                    'down'

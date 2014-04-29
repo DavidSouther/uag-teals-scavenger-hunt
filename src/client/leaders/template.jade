@@ -3,22 +3,10 @@
     table.table.table-striped(ng-init="order = 'name' ; direction = {}")
         thead
             tr
-                th(
-                    width="35%"
-                    ng-click="order = 'name' ; direction.name = !direction.name"
-                ) Leader
-                th(
-                    width="35%"
-                    ng-click="order = 'finished' ; direction.finished = !direction.finished"
-                ) Programs
-                th(
-                    width="15%"
-                    ng-click="order = 'points' ; direction.points = !direction.points"
-                ) Points
-                th(
-                    width="15%"
-                    ng-click="order = 'tickets' ; direction.tickets = !direction.tickets"
-                ) Tickets
+                th(width="30%", sort="name") Leader
+                th(width="35%", sort="finished") Programs
+                th(width="15%", sort="points") Points
+                th(width="20%", sort="tickets") Tickets
         tbody
             tr(
                 ng-repeat="leader in leaders.leaders | orderBy:order:direction[order]"

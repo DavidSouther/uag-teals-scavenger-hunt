@@ -47,6 +47,7 @@ angular.module('teals.leaders.directive', [
     'teals.leaders.service'
     'teals.hunts.service'
     'teals.templates'
+    'th.sort'
 ])
 .controller('LeadersCtrl', LeadersCtrl)
 .directive 'leaders', ->
