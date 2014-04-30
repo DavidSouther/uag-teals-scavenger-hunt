@@ -5,7 +5,7 @@ describe 'Students', ->
         $httpBackend = null
         beforeEach inject (_$httpBackend_)->
             $httpBackend = _$httpBackend_
-            $httpBackend.whenGET('/assets/students.json')
+            $httpBackend.whenGET('/api/students.json')
             .respond 200, JSON.stringify
                 students: [
                     'David Souther'
@@ -17,6 +17,6 @@ describe 'Students', ->
             $httpBackend.verifyNoOutstandingRequest()
 
         it 'exposes students', inject (students)->
-            $httpBackend.expectGET('/assets/students.json')
+            $httpBackend.expectGET('/api/students.json')
             $httpBackend.flush()
             students.students.length.should.equal 2

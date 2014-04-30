@@ -12,8 +12,5 @@ angular.module('th.sort', [
         $element.on 'click', -> $scope.$apply ->
             $parent.order = field
             $parent.direction[field] = !$parent.direction[field]
-            $scope.direction =
-                if $parent.direction[field]
-                    'up'
-                else
-                    'down'
+            dir = $parent.direction[field]
+            $scope.direction = if dir then 'down' else 'up'
