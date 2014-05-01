@@ -1,10 +1,9 @@
 #!/bin/sh
 ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/mongo!!')"
-
-PORT=${MONGO_PORT:=27017}
+source $ROOTDIR/etc/environment.sh
 
 DUMP=snapshot_$(date +%Y%m%d-%H%M%S)
 
-mongodump --port $PORT --out $DUMP
+mongodump --port $MONGO_PORT --out $DUMP
 tar cf $DUMP.tar $DUMP
 rm -rf $DUMP
