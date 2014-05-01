@@ -1,34 +1,29 @@
 [winston, logger] = require '../logger'
-mongo = require('mongodb').MongoClient
-db = null
+mongoose = require('mongoose-q')(require('mongoose'))
 mongod = "mongodb://localhost:#{process.env.MONGO_PORT || 27017}/scavenge"
+mongoose.connect mongod
 
-mongo.connect "#{mongod}", (err, _db_)->
-    if err
-        winston.err 'DB Connection err', mongod, err
-        return
-    db = _db_
+db = mongoose.connection
+dbOpen = false
+db.on 'error', (err...)-> winston.err 'connection error:', err
+db.once 'open', -> dbOpen = true
 
-findAllStudents = (cb)->
-    db.collection('students').find().toArray (err, students)->
-        if err
-            msg = "Student Listing Unavailable."
-            winson.err msg, err
-            cb {error: msg}
-            return
-        response = students: students.map (_)->_.name
-        cb null, response
+studentSchema = mongoose.Schema({name: String, email: String})
+Student = mongoose.model 'student', studentSchema
+
+findAllStudents = ->
+    Student.findQ().then (students)->
+        { students: students.map (_)-> {name: _.name, email: _.email } }
 
 router = (req, res, next)->
-    return next() unless req.path is '/api/students.json'
+    return next() unless req.path.indexOf('/api/students') is 0
     res.set 'Content-Type', 'application/json'
-    unless db
+    unless dbOpen
         res.send 500, JSON.stringify {error: "DB Connection Unavailable."}
         return
-    findAllStudents (err, response)->
-        if err
-            res.send 500, JSON.stringify {error: msg}
-        else
-            res.send 200, response
+    success = (response)-> res.send 200, response
+    failure = (error)-> res.send 500, JSON.stringify {error: msg}
+
+    findAllStudents().then(success, failure)
 
 module.exports = router

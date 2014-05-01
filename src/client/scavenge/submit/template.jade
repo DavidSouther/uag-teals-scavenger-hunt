@@ -10,7 +10,7 @@
                 placeholder="name"
                 ng-model="hunt.student"
                 ng-model-options="{ updateOn: 'blur' }"
-                typeahead="student for student in hunt.students.students | filter:$viewValue"
+                typeahead="student.name for student in hunt.students.students | filter:$viewValue"
             )
     .row
         .col-md-2.text-right

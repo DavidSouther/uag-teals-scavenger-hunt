@@ -8,8 +8,8 @@ describe 'Students', ->
             $httpBackend.whenGET('/api/students.json')
             .respond 200, JSON.stringify
                 students: [
-                    'David Souther'
-                    'Thomas Bijesse'
+                    {name: 'David Souther', email: 'davidsouther@gmail.com'}
+                    {name: 'Thomas Bijesse', email: 'tbijesse@uagateway.com'}
                 ]
 
         afterEach ->

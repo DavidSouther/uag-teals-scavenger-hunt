@@ -24,6 +24,7 @@ html(lang='en', ng-app='teals.scavenger')
     script(src="/vendors/angular-bootstrap/ui-bootstrap.js")
     script(src="/vendors/angular-bootstrap/ui-bootstrap-tpls.js")
     script(src="/vendors/angular-ui-codemirror/ui-codemirror.js")
+
   body
     .container
         .header
@@ -34,6 +35,9 @@ html(lang='en', ng-app='teals.scavenger')
 
         ng-view
         huntlist
+
+    footer
+        a(href="https://github.com/DavidSouther/uag-teals-scavenger-hunt") source
 
     script(src="/templates.js")
     script(src="/app.js")
