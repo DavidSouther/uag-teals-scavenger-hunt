@@ -1,11 +1,10 @@
 #!/bin/sh
 ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/mongo!!')"
-
-PORT=${MONGO_PORT:=27017}
+source $ROOTDIR/etc/environment.sh
 
 SNAP="$1"
 SNAPDIR=${SNAP%\.tar}
 
 tar xf $SNAP
-mongorestore --port $PORT $SNAPDIR
+mongorestore --port $MONGO_PORT $SNAPDIR
 rm -rf $SNAPDIR
