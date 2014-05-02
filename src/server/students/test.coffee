@@ -1,7 +1,5 @@
 should = require "should"
-server = require "../server"
-process.env.LOG_LEVEL = 'WARN'
-request = require("supertest")(server.express)
+request = require('supertest')(require('./route')(require('express')()))
 
 describe "Server DB", ->
     describe "students", ->

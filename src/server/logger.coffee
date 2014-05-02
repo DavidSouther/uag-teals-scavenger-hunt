@@ -2,9 +2,7 @@ winston = require 'winston'
 express = require 'express'
 
 level = process.env.LOG_LEVEL || 'info'
-colorize = yes
-timestamp = yes
-opts = {level, colorize, timestamp}
+opts = {level, colorize: yes, timestamp: yes}
 
 winston = winston
     .remove(winston.transports.Console)
@@ -15,5 +13,4 @@ stream =
         winston.verbose message
 
 logger = express.logger({stream})
-
-module.exports = [winston, logger]
+module.exports = {log: winston, middleware: logger}

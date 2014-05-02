@@ -1,38 +1,30 @@
-path = require "path"
-root = path.join __dirname, "..", ".."
-client = path.join root, 'build', 'client'
+Path = require "path"
+
+# Root is two up from server.
+global.root = Path.join __dirname, "..", ".."
 app_name = require('../../package').name
 
-[winston, logger] = require './logger'
+logging = require './logger'
+winston = logging.log
 express = require "express"
 
 app = express()
-.use(logger)
-.use(require('./submissions'))
-.use(require('./leaders'))
-.use(require('./mongo/router'))
-.use (req, res, next)->
-    if req.path.match /\.(html|css|js|map|png|svg|json|gif|ttf)$/
-        # Statically serve .{asset} files
-        next()
-    else
-        # Serve the index
-        res.sendfile path.join client, 'index.html'
-.use(require('st')(client))
+.use(logging.middleware)
 
-server = null
+require('./routers')(app)
 
 module.exports =
+    server: null
     express: app
     start: (callback)->
         startingPort = process.env.NODE_PORT || 1024
         require('openport')
         .find {startingPort}, (err, port)->
             process.env.PORT = port
-            server = app.listen process.env.PORT
+            @server = app.listen process.env.PORT
             winston.info "#{app_name} listening"
             winston.info "http://127.0.0.1:#{port}/"
             callback?()
 
     stop: ->
-        server?.close()
+        @server?.close()

@@ -1,7 +1,6 @@
 should = require "should"
-server = require "../server"
-process.env.LOG_LEVEL = 'WARN'
-request = require("supertest")(server.express)
+global.root = require('path').join('.')
+request = require('supertest')(require('./route')(require('express')()))
 
 describe "Server", ->
     describe "index.html", ->
