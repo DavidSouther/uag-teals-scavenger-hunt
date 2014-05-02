@@ -4,7 +4,7 @@
   "description": "TEALS Submissions",
   "scripts": {
     "postinstall": "node ./node_modules/.bin/bower update --force --config.interactive=0 ; npm run deploy",
-    "start": "./src/deploy/start.sh",
+    "start": "./src/deploy/node/start.sh",
     "test": "node ./node_modules/.bin/grunt",
     "deploy": "node ./node_modules/.bin/grunt deploy"
   },
