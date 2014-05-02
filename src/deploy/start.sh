@@ -1,5 +1,6 @@
 #!/bin/sh
 ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy!!')"
+echo "Starting in $ROOTDIR"
 
 source $ROOTDIR/etc/environment.sh
 
