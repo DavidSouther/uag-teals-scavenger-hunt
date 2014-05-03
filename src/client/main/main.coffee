@@ -3,6 +3,7 @@ mod = angular.module('teals.scavenger', [
     'ui.bootstrap'
     'ui.codemirror'
     'teals.leaders.directive'
+    'teals.students.directive'
     'teals.submissions.directive'
     'teals.hunts.directive'
     'teals.nav.directive'
@@ -16,6 +17,8 @@ mod.config (
     $locationProvider
 )->
     $locationProvider.html5Mode true
+    $routeProvider.when '/students',
+        template: '<students></students>'
     $routeProvider.when '/leaderboard',
         template: '<leaders></leaders><huntlist></huntlist>'
     $routeProvider.when '/login',

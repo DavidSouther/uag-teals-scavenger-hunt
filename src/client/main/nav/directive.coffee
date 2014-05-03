@@ -12,7 +12,8 @@ class NavCtrl
             else if path in ['/login']
                 'login'
             else
-                throw new Error "Unexpected Location: `#{path}`"
+                'Other'
+                # throw new Error "Unexpected Location: `#{path}`"
 
 NavCtrl.$inject = [
     '$rootScope'

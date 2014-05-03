@@ -5,6 +5,7 @@ routers = (app)->
         'leaders'
         'submissions'
 
+        'api'
 
         'static' # Always last
     ].forEach (api)->

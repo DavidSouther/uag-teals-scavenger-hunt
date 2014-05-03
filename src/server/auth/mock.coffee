@@ -5,30 +5,31 @@ if process.env.NODE_ENV isnt 'development'
 passport = require('passport')
 winston = require('../logger').log
 Student = require('../students/model')
+auth = require('./authenticate')
+
+mockStudent = "teals@uagateway.org"
+mockAdmin = "davidsouther@gmail.com"
 
 handlers =
-    signin: (req, res, next)->
-        mockStudent = "davidsouther@gmail.com"
-        cookieSettings = { maxAge: 90000 }
-        Student.findOneQ({email: mockStudent})
+    signin: (mockEmail)-> (req, res, next)->
+        Student.findOneQ({email: mockEmail})
         .then (student)->
             if not student
-                msg = "Mock Student `#{mockStudent}` not found!"
+                msg = "Mock Student `#{mockEmail}` not found!"
                 throw new Error msg
             winston.info "#{student.email} logging in to mock..."
             student.token = 'mock'
+            student.roles = { teacher: true }
             student.saveQ()
             .then ([student])->
                 winston.info "#{student.email} logged in as mock..."
-                res.cookie 'li', '1', cookieSettings
-                for f in ['name', 'email', 'token']
-                    res.cookie f, student[f], cookieSettings
-                res.redirect('/')
+                auth.authenticate res, student
         .fail (err)->
             next(err)
 
 route = (app)->
     winston.debug 'Attaching Mock handlers to /auth/signin...'
-    app.get '/auth/signin/mock', handlers.signin
+    app.get '/auth/signin/mock', handlers.signin(mockStudent)
+    app.get '/auth/signin/mock/admin', handlers.signin(mockAdmin)
 
 module.exports = route

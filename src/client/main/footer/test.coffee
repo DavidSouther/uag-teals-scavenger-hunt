@@ -12,14 +12,13 @@ describe 'Footer', ->
         it 'starts logged out', ->
             footerCtrl = $controller('FooterCtrl')
             footerCtrl.loggedin.should.equal false
-            footerCtrl.admin.should.equal false
+            footerCtrl.roles.should.deep.equal {}
 
         it 'checks the li cookie', inject ($cookies)->
             $cookies.li = '1'
             footerCtrl = $controller('FooterCtrl', {$cookies})
             footerCtrl.loggedin.should.equal true
-            footerCtrl.admin.should.equal false
-
+            footerCtrl.roles.should.deep.equal {}
 
     describe 'directive', ->
         it 'renders', ->

@@ -9,7 +9,10 @@ winston = logging.log
 express = require "express"
 
 app = express()
+.use(express.cookieParser())
+.use(require('body-parser').json())
 .use(logging.middleware)
+.use(require('./auth/authenticate').userHandler)
 
 if process.env.NODE_ENV is 'development'
     app.use express.errorHandler

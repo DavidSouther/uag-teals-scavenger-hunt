@@ -1,5 +1,6 @@
 winston = require('../logger').log
 Student = require('../students/model')
+auth = require('./authenticate')
 
 signout = (req, res, next)->
     email = req.cookies.email
@@ -11,10 +12,7 @@ signout = (req, res, next)->
         student.saveQ()
         .then ->
             winston.info "#{email} token destroyed, eating cookies..."
-            cookieSettings = { maxAge: 0 } # secure: true ## soon
-            res.cookie 'li', '0', cookieSettings
-            res.cookie 'token', '', cookieSettings
-            res.redirect('/login')
+            auth.authenticate res, {name: '',  email: '', token: ''}, true
     .fail (err)-> next(err)
 
 route = (app)->

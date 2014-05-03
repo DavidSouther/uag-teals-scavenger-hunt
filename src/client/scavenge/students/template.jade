@@ -1,0 +1,49 @@
+.jumbotron
+    h4  Students
+    table.table.table-striped(ng-init="order = 'name' ; direction = {}")
+        thead
+            tr
+                th(width="5%")
+                th(width="45%", sort="name") Name
+                th(width="40%", sort="email") Email
+                th(width="5%")
+                th(width="5%")
+        tbody
+            tr(
+                ng-repeat="student in students.service.students | orderBy:order:direction[order]",
+                ng-class="{\
+                    'bg-success': student.saved.success,\
+                    'bg-danger': student.saved.failure\
+                }"
+            ).leader
+                td(align="center")
+                    button.btn-default.btn-sm(
+                        ng-click="students.delete(student)"
+                    )
+                        span.glyphicon.glyphicon-remove
+                td
+                    {{ student.name }}
+                td
+                    input.form-control(
+                        type="email",
+                        ng-model="student.email"
+                    )
+                td(align="center")
+                    button.btn-default.btn-sm(
+                        ng-click="student.roles.teacher = !student.roles.teacher"
+                    )
+                        span.glyphicon(
+                            ng-class="{'glyphicon-ok': student.roles.teacher}"
+                        )
+                td(align="center")
+                    button.btn-default.btn-sm(
+                        ng-click="student.save()"
+                    )
+                        span.glyphicon(
+                            ng-class="{\
+                                'glyphicon-floppy-disk': (\
+                                    !student.saved.success && !student.saved.failure\
+                                ),\
+                                'glyphicon-floppy-saved': student.saved.success\
+                            }"
+                        )

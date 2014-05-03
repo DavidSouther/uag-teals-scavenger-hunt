@@ -1,7 +1,9 @@
 class FooterCtrl
     constructor: ($cookies)->
         @loggedin = $cookies.li is '1'
-        @admin = false
+        # Express prefixes objects with j:
+        roleStr = ($cookies.roles || 'j:{}').substr(2)
+        @roles = JSON.parse(roleStr)
 
 FooterCtrl.$inject = [
     '$cookies'

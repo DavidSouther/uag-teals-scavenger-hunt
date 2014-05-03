@@ -1,14 +1,20 @@
 .footer
     a(href="https://github.com/DavidSouther/uag-teals-scavenger-hunt") source
+    span(ng-if="footer.roles.teacher")
+        | &nbsp;&#124;&nbsp;
+        a(
+            href="/grading"
+            target="_self"
+        ) grades
+    span(ng-if="footer.roles.teacher")
+        | &nbsp;&#124;&nbsp;
+        a(
+            href="/students"
+            target="_self"
+        ) students
     span(ng-if="footer.loggedin")
         | &nbsp;&#124;&nbsp;
         a(
             href="/auth/logout"
             target="_self"
         ) logout
-    span(ng-if="footer.admin")
-        | &nbsp;&#124;&nbsp;
-        a(
-            href="/auth/logout"
-            target="_self"
-        ) grades
