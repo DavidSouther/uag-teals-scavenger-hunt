@@ -9,6 +9,8 @@ class NavCtrl
                 'leaders'
             else if path in ['', '/']
                 'submit'
+            else if path in ['/login']
+                'login'
             else
                 throw new Error "Unexpected Location: `#{path}`"
 
@@ -22,6 +24,7 @@ angular.module('teals.nav.directive', [
 ])
 .controller('NavCtrl', NavCtrl)
 .directive 'topnav', ->
+    replace: true
     controller: 'NavCtrl'
     controllerAs: 'nav'
     templateUrl: 'main/nav'

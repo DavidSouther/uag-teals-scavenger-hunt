@@ -83,11 +83,13 @@ module.exports = (grunt)->
                     src: [
                         'angular/angular.*'
                         'angular-route/angular*'
+                        'angular-cookies/angular*'
                         # 'angular-ui/build/**/*'
                         'bootstrap/dist/**/*'
                         'angular-bootstrap/**/*'
                         'angular-ui-codemirror/**/*'
                         'codemirror/**/*'
+                        'css-social-buttons/css/*'
                     ]
                     dest: 'build/client/vendors'
                 ]
@@ -113,9 +115,10 @@ module.exports = (grunt)->
         'src/client/tools/*.coffee': [ 'coffee' ]
         'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
 
+    cover = if process.env.DEBUG then 'coffee' else 'coverage'
     for type in appFileOrdering
         if type.indexOf('.coffee') > -1
-            preprocessors[type] = ['coverage']
+            preprocessors[type] = [cover]
 
     grunt.Config =
         karma:
@@ -132,7 +135,7 @@ module.exports = (grunt)->
                         'bower_components/angular/angular.js'
                         'bower_components/angular-route/angular-route.js'
                         # 'bower_components/angular-animate/angular-animate.js'
-                        # 'bower_components/angular-cookies/angular-cookies.js'
+                        'bower_components/angular-cookies/angular-cookies.js'
                         'bower_components/angular-mocks/angular-mocks.js'
                         'src/client/tools/**/*'
                         appFileOrdering

@@ -8,9 +8,11 @@ strategy =
     settings:
         clientID: process.env.GOOGLE_OAUTH_CLIENTID
         clientSecret: process.env.GOOGLE_OAUTH_SECRET
-        callbackURL: 'http://local.souther.co:1035/auth/google/callback'
+        callbackURL: 'http://local.souther.co:1035/auth/callback/google'
         scope: 'https://www.googleapis.com/auth/userinfo.email'
-
+    ###
+    This callback is handled by
+    ###
     callback: (accessToken, refreshToken, profile, done)->
         error = (err)-> done(err)
         finish = (student)->
@@ -30,17 +32,19 @@ handlers =
             'google'
             {scope: strategy.scope}
             (err, user, info)->
-        )(req,res,next)
+                if err then winston.warn 'Issue with Google OAuth', err
+        )(req, res, next)
     callback: (req, res, next)->
-        authHandler = (err, user, info)->
+        winston.silly 'At google callback step.'
+        authHandler = (err, student, info)->
             return next(err) if err
-            return res.redirect('http://localhost:8000') unless user
-            found = (student)->
-                Location = "http://localhost:8000/?token=#{student.token}&user=#{student.email}"
-                res.writeHead 302, {Location}
-                res.end()
-            Student.findOneQ({email: profile._json.email}).then(found, error)
-        passport.authenticate('google', authHandler)(req,res,next)
+            if student
+                cookieSettings = { maxAge: 90000 } # secure: true ## soon
+                res.cookie 'li', '1', cookieSettings
+                for f in ['name', 'email', 'token']
+                    res.cookie f, student[f], cookieSettings
+            res.redirect '/'
+        passport.authenticate('google', authHandler)(req, res, next)
 
 route = (app)->
     winston.debug 'Attaching Google handlers to /auth/signin...'
