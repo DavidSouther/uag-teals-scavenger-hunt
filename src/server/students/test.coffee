@@ -1,5 +1,7 @@
 should = require "should"
-request = require('supertest')(require('./route')(require('express')()))
+app = require('express')()
+require('./route')(app)
+request = require('supertest')(app)
 
 describe "Server DB", ->
     describe "students", ->

@@ -1,6 +1,6 @@
 routers = (app)->
     [
-        # 'auth'
+        'auth'
         'students'
         'leaders'
         'submissions'

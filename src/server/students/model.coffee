@@ -1,6 +1,10 @@
 mongoose = require('../db')
 
-studentSchema = mongoose.Schema({name: String, email: String})
+studentSchema = mongoose.Schema({
+    name: String
+    email: String
+    token: String
+})
 Student = mongoose.model 'student', studentSchema
 
 Student.findAll = ->

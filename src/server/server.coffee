@@ -11,6 +11,12 @@ express = require "express"
 app = express()
 .use(logging.middleware)
 
+if process.env.NODE_ENV is 'development'
+    app.use express.errorHandler
+        dumpExceptions: true
+        showStack: true
+    winston.info "Starting in development mode"
+
 require('./routers')(app)
 
 module.exports =
