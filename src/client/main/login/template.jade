@@ -1,7 +1,19 @@
-.jumbotron
+.login.jumbotron
     .row
         .col-md-6
             a.zocial.google(
                 href="/auth/signin/google"
                 target="_self"
             ) Log In with Google
+
+    .row(ng-if="login.mocks")
+        .col-md-6
+            a#mock_student_login.btn.btn-primary.btn-sm(
+                href="/auth/signin/mock"
+                target="_self"
+            ) Log In as Mock Student
+        .col-md-6
+            a#mock_admin_login.btn.btn-default.btn-sm(
+                href="/auth/signin/mock/admin"
+                target="_self"
+            ) Log In as Mock Admin

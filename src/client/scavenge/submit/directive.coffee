@@ -7,8 +7,13 @@ class SubmissionsCtrl
         @$http
         @$timeout
         @$window
+        $cookies
     )->
         @reset(false)
+
+        if $cookies.li is '1'
+            @locked = true
+            @student = $cookies.name
 
         @$scope.$watch (=>@student), (o, n)=>
             @$window.localStorage.student = @student unless o is n
@@ -79,6 +84,7 @@ SubmissionsCtrl.$inject = [
     '$http'
     '$timeout'
     '$window'
+    '$cookies'
 ]
 
 angular.module('teals.submissions.directive', [
@@ -87,10 +93,11 @@ angular.module('teals.submissions.directive', [
     'teals.hunts.service'
     'teals.scavenger.fileInput'
     'teals.scavenger.fileReader'
+    'ngCookies'
 ])
 .controller(SubmissionsCtrl.name, SubmissionsCtrl)
 .directive 'submissions', ->
     restrict: 'EA'
     templateUrl: 'scavenge/submit'
     controller: SubmissionsCtrl.name
-    controllerAs: 'hunt'
+    controllerAs: 'submit'

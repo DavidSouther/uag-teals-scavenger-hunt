@@ -2,6 +2,7 @@ winston = require 'winston'
 express = require 'express'
 
 winston.config.npm.colors.http = 'magenta'
+winston.config.npm.colors.data = 'grey'
 winston.addColors winston.config.npm.colors
 
 level = process.env.LOG_LEVEL || 'info'
@@ -12,6 +13,7 @@ winston = winston
     .add(winston.transports.Console, opts)
 winston.setLevels
     silly: -Infinity
+    data: 100
     debug: 500
     verbose: 1000
     info: 2000

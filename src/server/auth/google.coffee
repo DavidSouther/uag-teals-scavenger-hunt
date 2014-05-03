@@ -1,21 +1,29 @@
+# Not running in a full environment.
+if not process.env.GOOGLE_OAUTH_CLIENTID
+    module.exports = (app)->app
+    return
+
+winston = require('../logger').log
 passport = require('passport')
 googleStrategy = require('passport-google-oauth').OAuth2Strategy
 Student = require('../students/model')
 
-winston = require('../logger').log
+winston.debug "Google Auth: Callback Server is #{process.env.SERVER}"
 
 strategy =
     settings:
         clientID: process.env.GOOGLE_OAUTH_CLIENTID
         clientSecret: process.env.GOOGLE_OAUTH_SECRET
-        callbackURL: 'http://local.souther.co:1035/auth/callback/google'
+        callbackURL: "#{process.env.SERVER}/auth/callback/google"
         scope: 'https://www.googleapis.com/auth/userinfo.email'
+
     ###
     This callback is handled by
     ###
     callback: (accessToken, refreshToken, profile, done)->
         error = (err)-> done(err)
-        finish = (student)->
+        finish = ([student])->
+            winston.info "Google OAuth token saved for #{student.email}."
             done(null, student)
         found = (student)->
             student.token = accessToken
@@ -38,6 +46,8 @@ handlers =
         winston.silly 'At google callback step.'
         authHandler = (err, student, info)->
             return next(err) if err
+            console.log
+            winston.info "#{student.email} logged in with Google."
             if student
                 cookieSettings = { maxAge: 90000 } # secure: true ## soon
                 res.cookie 'li', '1', cookieSettings

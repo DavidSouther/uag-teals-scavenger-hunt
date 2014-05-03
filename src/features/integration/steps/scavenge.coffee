@@ -32,6 +32,15 @@ module.exports = ->
         @world.find(selector)
         .click().then => @protractor.waitForAngular()
 
+    @When /log in/, ->
+        selector = mappings['student login']
+        @world.findAll(selector)
+        .then (elements)->
+            if elements.length > 0
+                elements[0].click()
+            else
+                true
+
     @Then /should see "([^"]+)" in the "([^"]*)"/, (text, field)=>
         selector = mappings[field]
         @world.find(selector)
@@ -51,3 +60,11 @@ module.exports = ->
         @world.findAll(selector)
         .then (elements)->
             elements.length.should.be.greaterThan 1
+
+    @Then /"([^"]*)" should be filled with "([^"]*)"/, (field, expected)->
+        selector = mappings[field]
+        @world.find(selector)
+        .then (element)->
+            element.getAttribute('value')
+            .then (value)->
+                value.should.equal expected

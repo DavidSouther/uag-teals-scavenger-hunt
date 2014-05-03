@@ -1,4 +1,4 @@
-.jumbotron.hidden-print
+.submissions.jumbotron.hidden-print
     .row
         .col-md-2.text-right
             label(for='name') Name
@@ -8,9 +8,10 @@
                 autocomplete="off"
                 required
                 placeholder="name"
-                ng-model="hunt.student"
+                ng-disabled="submit.locked"
+                ng-model="submit.student"
                 ng-model-options="{ updateOn: 'blur' }"
-                typeahead="student.name for student in hunt.students.students | filter:$viewValue"
+                typeahead="student.name for student in submit.students.students | filter:$viewValue"
             )
     .row
         .col-md-2.text-right
@@ -18,17 +19,17 @@
         .col-md-10
             div.form-control#file(
                 accept=".py"
-                file-input='hunt.file'
-                on-change='hunt.loadScript()'
+                file-input='submit.file'
+                on-change='submit.loadScript()'
             )
-    .row(ng-show="hunt.file.name && !hunt.invalid")
+    .row(ng-show="submit.file.name && !submit.invalid")
         .col-md-2.text-right
-            strong {{hunt.file.name}}
+            strong {{submit.file.name}}
         .col-md-2
-            strong {{hunt.points}} Point{{ hunt.point > 0 ? 's' : '' }}
+            strong {{submit.points}} Point{{ submit.point > 0 ? 's' : '' }}
         .col-md-8
-            pre {{hunt.prompt}}
-    .row(ng-show="hunt.file.name && !hunt.invalid")
+            pre {{submit.prompt}}
+    .row(ng-show="submit.file.name && !submit.invalid")
         .col-md-3.text-right
             strong Comments
             br
@@ -36,10 +37,10 @@
         .col-md-9
             textarea.form-control(
                 rows="6"
-                ng-model="hunt.comments"
+                ng-model="submit.comments"
             )
 
-    .row(ng-show="hunt.file.name && !hunt.invalid")
+    .row(ng-show="submit.file.name && !submit.invalid")
         .col-md-12
             ui-codemirror(
                  ui-codemirror-opts="{\
@@ -48,39 +49,39 @@
                     readOnly: true,\
                     mode: 'python'\
                  }"
-                 ng-model="hunt.script"
+                 ng-model="submit.script"
             )
 
-    .row(ng-show="hunt.student && hunt.comments.length > 15")
+    .row(ng-show="submit.student && submit.comments.length > 15")
         button.btn.btn-primary(
             type="button"
-            ng-click="hunt.submit()"
+            ng-click="submit.submit()"
         ) Submit
 
-    .row(ng-show="hunt.invalid")
+    .row(ng-show="submit.invalid")
         .col-md-12.alert.alert-warning
-            strong {{hunt.file.name}}&nbsp;
+            strong {{submit.file.name}}&nbsp;
             | is not a scaveger hunt program. (Is the filename capitalized correctly?)
 
-    .row(ng-show="hunt.uploadSuccess")
+    .row(ng-show="submit.uploadSuccess")
         .col-md-12.alert.alert-success
-            strong {{hunt.uploaded}}&nbsp;
+            strong {{submit.uploaded}}&nbsp;
             | was uploaded successfully.
             .pull-right
                 button.close(
                     type="button"
                     aria-hidden="true"
-                    ng-click="hunt.clearAlerts()"
+                    ng-click="submit.clearAlerts()"
                 ) &times;
 
-    .row(ng-show="hunt.uploadError")
+    .row(ng-show="submit.uploadError")
         .col-md-12.alert.alert-danger
-            strong {{hunt.uploaded}}&nbsp;
+            strong {{submit.uploaded}}&nbsp;
             | didn't run.
             .pull-right
                 button.close(
                     type="button"
                     aria-hidden="true"
-                    ng-click="hunt.clearAlerts()"
+                    ng-click="submit.clearAlerts()"
                 ) &times;
-            pre {{ hunt.errorLog }}
+            pre {{ submit.errorLog }}

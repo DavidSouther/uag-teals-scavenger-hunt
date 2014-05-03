@@ -7,12 +7,16 @@ angular.module('teals.scavenger')
     loginRedirect()
 
 class LoginCtrl
-    constructor: ->
+    constructor: ($cookies)->
+        @mocks = $cookies.NODE_ENV is 'development'
 
-LoginCtrl.$inject = []
+LoginCtrl.$inject = [
+    '$cookies'
+]
 
 angular.module('teals.login.directive', [
     'teals.templates'
+    'ngCookies'
 ])
 .controller('LoginCtrl', LoginCtrl)
 .directive 'login', ->

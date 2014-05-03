@@ -61,11 +61,11 @@ describe 'Submissions', ->
                     points: 1
         undefined
 
-    beforeEach(module(
+    beforeEach module(
         'teals.submissions.directive'
         'teals.fileInput.directive.override'
         testOverride
-    ))
+    )
 
     localStorage = null
     beforeEach inject ($window)->
@@ -121,6 +121,16 @@ describe 'Submissions', ->
             ctrl.student.should.equal 'David Souther'
             localStorage.student.should.equal 'David Souther'
             ctrl = getController()
+            ctrl.student.should.equal 'David Souther'
+
+        it 'locks student name from cookies', inject ($cookies)->
+            $cookies.li = '1'
+            $cookies.name = 'David Souther'
+            after ->
+                delete $cookies.li
+                delete $cookies.name
+            ctrl = getController()
+            ctrl.locked.should.equal true
             ctrl.student.should.equal 'David Souther'
 
     describe 'directive', ->

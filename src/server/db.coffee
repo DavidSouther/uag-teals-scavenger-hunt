@@ -1,5 +1,5 @@
 winston = require('./logger').log
-mongoose = require('mongoose-q')(require('mongoose'))
+mongoose = require('mongoose-q')(require('mongoose'), {spread: true})
 mongod = "mongodb://localhost:#{process.env.MONGO_PORT || 27017}/scavenge"
 mongoose.connect mongod
 

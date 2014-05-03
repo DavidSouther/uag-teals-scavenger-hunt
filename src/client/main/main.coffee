@@ -7,6 +7,7 @@ mod = angular.module('teals.scavenger', [
     'teals.hunts.directive'
     'teals.nav.directive'
     'teals.login.directive'
+    'teals.footer.directive'
     'teals.templates'
     'ngCookies'
 ])

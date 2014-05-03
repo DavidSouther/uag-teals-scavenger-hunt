@@ -15,6 +15,10 @@ if process.env.NODE_ENV is 'development'
     app.use express.errorHandler
         dumpExceptions: true
         showStack: true
+    app.use (req, res, next)->
+        # Let the browser know we can be promiscuous in debug info.
+        res.cookie 'NODE_ENV', process.env.NODE_ENV, {maxAge: 900000}
+        next()
     winston.info "Starting in development mode"
 
 require('./routers')(app)

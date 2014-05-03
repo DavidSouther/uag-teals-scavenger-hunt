@@ -1,0 +1,14 @@
+.footer
+    a(href="https://github.com/DavidSouther/uag-teals-scavenger-hunt") source
+    span(ng-if="footer.loggedin")
+        | &nbsp;&#124;&nbsp;
+        a(
+            href="/auth/logout"
+            target="_self"
+        ) logout
+    span(ng-if="footer.admin")
+        | &nbsp;&#124;&nbsp;
+        a(
+            href="/auth/logout"
+            target="_self"
+        ) grades
