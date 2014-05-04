@@ -1,6 +1,8 @@
 should = require "should"
 global.root = require('path').join('.')
-request = require('supertest')(require('./route')(require('express')()))
+app = require('express')()
+app.use(require('./handler'))
+request = require('supertest')(app)
 
 describe "Server", ->
     describe "index.html", ->

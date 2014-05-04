@@ -19,7 +19,7 @@ handlers =
                 throw new Error msg
             winston.info "#{student.email} logging in to mock..."
             student.token = 'mock'
-            student.roles = { teacher: true }
+            student.roles = { teacher: mockEmail is mockAdmin }
             student.saveQ()
             .then ([student])->
                 winston.info "#{student.email} logged in as mock..."

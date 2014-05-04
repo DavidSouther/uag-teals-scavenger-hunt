@@ -4,8 +4,8 @@
         thead
             tr
                 th(width="5%")
-                th(width="45%", sort="name") Name
-                th(width="40%", sort="email") Email
+                th(width="35%", sort="name") Name
+                th(width="50%", sort="email") Email
                 th(width="5%")
                 th(width="5%")
         tbody
@@ -18,7 +18,7 @@
             ).leader
                 td(align="center")
                     button.btn-default.btn-sm(
-                        ng-click="students.delete(student)"
+                        ng-click="student.$delete()"
                     )
                         span.glyphicon.glyphicon-remove
                 td
@@ -33,11 +33,14 @@
                         ng-click="student.roles.teacher = !student.roles.teacher"
                     )
                         span.glyphicon(
-                            ng-class="{'glyphicon-ok': student.roles.teacher}"
+                            ng-class="{\
+                                'glyphicon-ok': student.roles.teacher,\
+                                'glyphicon-none': !student.roles.teacher\
+                            }"
                         )
                 td(align="center")
                     button.btn-default.btn-sm(
-                        ng-click="student.save()"
+                        ng-click="student.$save()"
                     )
                         span.glyphicon(
                             ng-class="{\

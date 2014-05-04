@@ -29,7 +29,7 @@ class SubmissionsCtrl
     handleScript: (result)->
         @invalid = false
         @script = result
-        program = @huntservice.items[@file.name]
+        program = @huntservice.findScript @file.name
         @prompt = program.description
         @points = program.points
 

@@ -1,9 +1,15 @@
-.hunts(ng-init="order = 'id'; direction = {}; search = ''")
-    table.table.table-striped
+.hunts
+
+    table.table.table-striped(
+        ng-repeat="hunt in hunts.hunts"
+        ng-init="order = 'id'; direction = {}; search = ''; expand = false"
+    )
         thead
-            tr
-                th(sort='id') Program
-                th(sort='name') Name
+            tr(ng-click="expand = !expand")
+                th(colspan=5) {{hunt.name}}
+            tr(ng-show="expand")
+                th(sort='id', width="15%") Program
+                th(sort='name', width="15%") Name
                 th
                     form.form-inline(role="form")
                         .form-group.has-feedback.expand
@@ -15,10 +21,10 @@
                                     ng-model="search"
                                 )
                                 span.glyphicon.glyphicon-search.form-control-feedback
-                th(sort='points') Points
+                th(sort='points', width="12%") Points
                 th.visible-print(width='10%') Finished
-        tbody
-            tr(ng-repeat="item in hunt.itemList | orderBy:order:direction[order] | filter:search")
+        tbody(ng-show="expand")
+            tr(ng-repeat="item in hunt.scripts | orderBy:order:direction[order] | filter:search")
                 td {{ item.id }}
                 td {{ item.name }}
                 td {{ item.description }}

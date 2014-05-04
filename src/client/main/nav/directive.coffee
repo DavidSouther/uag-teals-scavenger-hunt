@@ -5,7 +5,7 @@ class NavCtrl
 
     setLocation: (path)->
         @page =
-            if path is '/leaderboard'
+            if path in ['/leaderboard', '/students', '/hunts']
                 'leaders'
             else if path in ['', '/']
                 'submit'

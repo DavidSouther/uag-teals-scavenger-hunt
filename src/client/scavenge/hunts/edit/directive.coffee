@@ -1,33 +1,32 @@
 class HuntEditCtrl
-    constructor: (@$http, $scope)->
-        @parsedContent = {name: "Intro", scripts: []}
-        @content = JSON.stringify(@parsedContent, null, '\t')
-        @name = @parsedContent.name
+    constructor: ($scope, @huntservice)->
+        @hunt = new @huntservice.Hunts({name: "Intro", scripts: []})
+        @content = JSON.stringify(@hunt.scripts, null, '\t')
         @parses = true
 
-        # $scope.$watch @name, =>@parse()
-        $scope.$watch (=>@content), (ov, nv)=>
-            @parse() unless ov is undefined or ov is nv
+        reparse = (o, n)=> @parse() unless o in [undefined, n]
+        $scope.$watch (=>@name), reparse
+        $scope.$watch (=>@content), reparse
 
     parse: ->
         try
-            # throw new Error unless @name.length > 0
-            @parsedContent = JSON.parse @content
-            throw new Error unless @parsedContent.scripts instanceof Array
-            @parsedContent.name = @name
+            throw new Error unless @hunt.name.length > 0
+            scripts = JSON.parse @content
+            throw new Error unless scripts instanceof Array
+            @hunt.scripts = scripts
             @parses = true
         catch e
             @parses = false
 
     save: ->
-        return unless @parses and @name.length > 0
+        return unless @parses
         @saved = {success: false, failure: false}
-        @$http.post('/api/hunts/save', @parsedContent)
+        @hunt.$save()
         .then (=>@saved.success = true), (=> @saved.failure = true)
 
 HuntEditCtrl.$inject = [
-    '$http'
     '$scope'
+    'huntservice'
 ]
 
 angular.module('teals.hunts.editor.directive', [

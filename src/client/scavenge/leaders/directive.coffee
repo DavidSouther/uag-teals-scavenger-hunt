@@ -1,7 +1,7 @@
 class LeadersService
     constructor: (@huntservice, $http)->
         @leaders = []
-        $http.get('/leaders').then (response)=>
+        $http.get('/api/leaders').then (response)=>
             @parseLeaders response.data
 
     parseLeaders: (leadersList)->
@@ -17,7 +17,7 @@ class LeadersService
 
     points: (programs)->
         reduction = (points, program)=>
-            points += @huntservice.items[program]?.points || 0
+            points += @huntservice.findScript(program)?.points || 0
         programs.reduce reduction, 0
 
     tickets: (points)->

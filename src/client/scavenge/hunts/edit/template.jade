@@ -8,20 +8,21 @@
                 input#name.form-control(
                     name="name"
                     placeholder="name"
-                    ng-model="hunteditor.name"
+                    ng-model="hunteditor.hunt.name"
                 )
         .row
             .col-md-12
-                ui-codemirror(
-                     ui-codemirror-opts="{\
+                label(for="scripts") Scripts
+                ui-codemirror#scripts(
+                    ui-codemirror-opts="{\
                         lineWrapping: false,\
                         lineNumbers: true,\
                         readOnly: false,\
                         mode: 'javascript'\
-                     }"
-                     ng-model="hunteditor.content"
+                    }"
+                    ng-model="hunteditor.content"
                 )
-        .row(ng-show="hunteditor.parses && hunteditor.name.length > 0")
+        .row(ng-show="hunteditor.parses && ! hunteditor.saved.success")
             .col-md-12
                 button.btn.btn-primary(
                     type="button"

@@ -13,13 +13,13 @@ authenticate = (res, student, logout = false)->
     winston.data res.get('Set-Cookie')
     res.redirect('/')
 
-userHandler = (req, res, next)->
+userHandler = -> (req, res, next)->
     query = {email: req.cookies.email, token: req.cookies.token}
-    winston.debug 'Querying mongo for Student...'
+    winston.debug 'Auth: Querying mongo for Student...'
     winston.data query
     Student.findQ(query)
     .then ([student])->
-        winston.debug 'Found Student...'
+        winston.debug 'Auth: Found Student...'
         winston.data JSON.stringify student
         req.student = new Student student
         next()

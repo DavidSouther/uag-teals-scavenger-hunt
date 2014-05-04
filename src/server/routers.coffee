@@ -7,8 +7,6 @@ routers = (app)->
         'submissions'
 
         'api'
-
-        'static' # Always last
     ].forEach (api)->
         require("./#{api}/route")(app)
 

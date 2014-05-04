@@ -1,6 +1,6 @@
 class HuntsCtrl
     constructor: (@huntservice)->
-        @itemList = @huntservice.itemList
+        @hunts = @huntservice.hunts
 
 HuntsCtrl.$inject = [
     'huntservice'
@@ -15,4 +15,4 @@ angular.module('teals.hunts.directive', [
     restrict: 'EA'
     templateUrl: 'scavenge/hunts'
     controller: HuntsCtrl.name
-    controllerAs: 'hunt'
+    controllerAs: 'hunts'

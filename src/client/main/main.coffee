@@ -14,7 +14,7 @@ mod = angular.module('teals.scavenger', [
     'ngCookies'
 ])
 mod.config (
-    $routeProvider,
+    $routeProvider
     $locationProvider
 )->
     $locationProvider.html5Mode true
@@ -28,5 +28,3 @@ mod.config (
         template: '<login></login>'
     $routeProvider.otherwise
         template: '<submissions></submissions><huntlist></huntlist>'
-
-

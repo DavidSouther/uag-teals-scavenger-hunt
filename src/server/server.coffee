@@ -12,7 +12,8 @@ app = express()
 .use(express.cookieParser())
 .use(require('body-parser').json())
 .use(logging.middleware)
-.use(require('./auth/authenticate').userHandler)
+.use(require("./static/handler"))
+.use(require('./auth/authenticate').userHandler())
 
 if process.env.NODE_ENV is 'development'
     app.use express.errorHandler

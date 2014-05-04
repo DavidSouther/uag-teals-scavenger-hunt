@@ -2,7 +2,7 @@ fs = require('fs')
 path = require('path')
 
 route = (app)->
-    app.get '/leaders', (req, res, next)->
+    app.get '/api/leaders', (req, res, next)->
         fs.readdir 'submissions', (err, dir)->
             return next(err) if err
             fail = false
