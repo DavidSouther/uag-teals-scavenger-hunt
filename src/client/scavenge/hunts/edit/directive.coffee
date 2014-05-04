@@ -29,8 +29,30 @@ HuntEditCtrl.$inject = [
     'huntservice'
 ]
 
+ScriptsControl = ->
+    require: 'ngModel'
+    link: (scope, elem, attrs, control)->
+        control.$parsers.unshift (viewVal)->
+            valid = yes
+            try
+                scripts = JSON.parse viewVal
+                control.$setValidity 'json', yes
+                unless scripts instanceof Array
+                    control.$setValidity 'isArray', no
+                    valid = no
+                else
+                    control.$setValidity 'isArray', yes
+            catch e
+                control.$setValidity 'json', no
+                valid = no
+            if valid
+                viewVal
+            else
+                undefined
+
 angular.module('teals.hunts.editor.directive', [
 ]).controller('HuntEditCtrl', HuntEditCtrl)
+.directive 'scriptsValidator', ScriptsControl
 .directive 'huntEditor', ->
     replace: false
     restrict: 'AE'

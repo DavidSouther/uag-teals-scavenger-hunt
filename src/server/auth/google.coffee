@@ -9,7 +9,7 @@ googleStrategy = require('passport-google-oauth').OAuth2Strategy
 auth = require('./authenticate')
 Student = require('../students/model')
 
-winston.debug "Google Auth: Callback Server is #{process.env.SERVER}"
+winston.info "Google Auth: Callback Server is #{process.env.SERVER}"
 
 strategy =
     settings:
@@ -36,7 +36,7 @@ passport.use new googleStrategy strategy.settings, strategy.callback
 
 handlers =
     signin: (req, res, next)->
-        winston.silly 'Starting google sign in.'
+        winston.debug 'Starting google sign in.'
         passport.authenticate(
             'google'
             {scope: strategy.scope}
@@ -44,7 +44,7 @@ handlers =
                 if err then winston.warn 'Issue with Google OAuth', err
         )(req, res, next)
     callback: (req, res, next)->
-        winston.silly 'At google callback step.'
+        winston.debug 'At google callback step.'
         authHandler = (err, student, info)->
             return next(err) if err
             winston.info "#{student.email} logged in with Google."
@@ -52,7 +52,7 @@ handlers =
         passport.authenticate('google', authHandler)(req, res, next)
 
 route = (app)->
-    winston.debug 'Attaching Google handlers to /auth/signin...'
+    winston.silly 'Attaching Google handlers to /auth/signin...'
     app.get '/auth/signin/google', handlers.signin
     app.get '/auth/callback/google', handlers.callback
 

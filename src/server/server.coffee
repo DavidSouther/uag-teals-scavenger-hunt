@@ -12,10 +12,9 @@ app = express()
 .use(express.cookieParser())
 .use(require('body-parser').json())
 .use(logging.middleware)
-.use(require("./static/handler"))
-.use(require('./auth/authenticate').userHandler())
 
 if process.env.NODE_ENV is 'development'
+    winston.info "Starting in development mode"
     app.use express.errorHandler
         dumpExceptions: true
         showStack: true
@@ -23,7 +22,10 @@ if process.env.NODE_ENV is 'development'
         # Let the browser know we can be promiscuous in debug info.
         res.cookie 'NODE_ENV', process.env.NODE_ENV, {maxAge: 900000}
         next()
-    winston.info "Starting in development mode"
+
+app
+.use(require("./static/handler"))
+.use(require('./auth/authenticate').userHandler())
 
 require('./routers')(app)
 

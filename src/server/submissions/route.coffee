@@ -40,6 +40,6 @@ handler = (req, res, next)->
             res.send(200, JSON.stringify response)
 
 route = (app)->
-    app.post '/submissions', handler
+    app.post '/api/submissions', handler
 
 module.exports = route

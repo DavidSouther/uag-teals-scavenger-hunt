@@ -1,19 +1,25 @@
 .jumbotron
     h4 Hunt Editor
-    form
+    form(name="huntform")
         .row
             .col-md-3
                 label(for="name") Name
-            .col-md-9
+            .col-md-6
                 input#name.form-control(
                     name="name"
                     placeholder="name"
                     ng-model="hunteditor.hunt.name"
+                    required
                 )
+            .col-md-3(ng-show="huntform.name.$invalid")
+                span.bg-warning(
+                    ng-show="huntform.name.$error.required"
+                ) Please give a name.
         .row
             .col-md-12
                 label(for="scripts") Scripts
                 ui-codemirror#scripts(
+                    name="scripts"
                     ui-codemirror-opts="{\
                         lineWrapping: false,\
                         lineNumbers: true,\
@@ -21,10 +27,22 @@
                         mode: 'javascript'\
                     }"
                     ng-model="hunteditor.content"
+                    scripts-validator
                 )
-        .row(ng-show="hunteditor.parses && ! hunteditor.saved.success")
+        .row(ng-show="huntform.scripts.$invalid")
+            .col-md-12.bg-warning(
+                ng-show="huntform.scripts.$error.json"
+            ) Need valid JSON
+        .row(ng-show="huntform.scripts.$invalid")
+            .col-md-12.bg-warning(
+                ng-show="huntform.scripts.$error.isArray"
+            ) Expects array of programs.
+        .row(ng-show="!huntform.$invalid && hunteditor.parses && ! hunteditor.saved.success")
             .col-md-12
                 button.btn.btn-primary(
                     type="button"
                     ng-click="hunteditor.save()"
                 ) Submit
+        .row(ng-show="hunteditor.saved.success")
+            .col-md-12.bg-success
+                | Hunt Saved.
