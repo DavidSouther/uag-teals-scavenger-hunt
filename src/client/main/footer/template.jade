@@ -6,12 +6,16 @@
             href="/grading"
             target="_self"
         ) grades
-    span(ng-if="footer.roles.teacher")
         | &nbsp;&#124;&nbsp;
         a(
             href="/students"
             target="_self"
         ) students
+        | &nbsp;&#124;&nbsp;
+        a(
+            href="/hunts"
+            target="_self"
+        ) hunts
     span(ng-if="footer.loggedin")
         | &nbsp;&#124;&nbsp;
         a(

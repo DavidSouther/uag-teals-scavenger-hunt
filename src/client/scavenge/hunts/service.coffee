@@ -4,7 +4,7 @@ class ScavengerHuntsService
         @itemList = []
         defer = $q.defer()
         @loaded = defer.promise
-        @$http.get('/assets/scavengerhunt.json').then (_)=>
+        @$http.get('/api/hunts').then (_)=>
             angular.extend @itemList, _.data.scripts
             # Attach sort IDs
             @itemList.forEach (item, id)-> item.id = id + 1

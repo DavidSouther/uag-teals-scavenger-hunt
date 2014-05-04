@@ -4,9 +4,10 @@ describe 'Scavenger Hunts', ->
     $httpBackend = null
     beforeEach inject (_$httpBackend_)->
         $httpBackend = _$httpBackend_
-        $httpBackend.expectGET('/assets/scavengerhunt.json')
-        $httpBackend.whenGET('/assets/scavengerhunt.json')
+        $httpBackend.expectGET('/api/hunts')
+        $httpBackend.whenGET('/api/hunts')
         .respond 200, JSON.stringify
+            name: 'Intro'
             scripts: [
                 name: "hello.py",
                 description: "print \"Hello, TEALS UAG!\"",

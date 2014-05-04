@@ -19,9 +19,6 @@ route = (app)->
             return
         winston.debug 'Saving student data...'
         winston.data req.body
-        winston.data req.body.name
-        winston.data req.body.email
-        winston.data req.body.roles
         Student.findQ({name: req.body.name})
         .then ([student])->
             unless student

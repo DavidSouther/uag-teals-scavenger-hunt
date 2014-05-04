@@ -3,6 +3,7 @@ routers = (app)->
         'auth'
         'students'
         'leaders'
+        'hunts'
         'submissions'
 
         'api'

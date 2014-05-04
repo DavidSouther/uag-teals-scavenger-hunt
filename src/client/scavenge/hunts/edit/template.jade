@@ -1,0 +1,29 @@
+.jumbotron
+    h4 Hunt Editor
+    form
+        .row
+            .col-md-3
+                label(for="name") Name
+            .col-md-9
+                input#name.form-control(
+                    name="name"
+                    placeholder="name"
+                    ng-model="hunteditor.name"
+                )
+        .row
+            .col-md-12
+                ui-codemirror(
+                     ui-codemirror-opts="{\
+                        lineWrapping: false,\
+                        lineNumbers: true,\
+                        readOnly: false,\
+                        mode: 'javascript'\
+                     }"
+                     ng-model="hunteditor.content"
+                )
+        .row(ng-show="hunteditor.parses && hunteditor.name.length > 0")
+            .col-md-12
+                button.btn.btn-primary(
+                    type="button"
+                    ng-click="hunteditor.save()"
+                ) Submit
