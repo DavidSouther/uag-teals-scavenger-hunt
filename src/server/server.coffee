@@ -11,7 +11,7 @@ app = express()
 .use(require('./submissions'))
 .use(require('./leaders'))
 .use (req, res, next)->
-    if req.path.match /\.(html|css|js|map|png|svg|json|gif|ttf)$/
+    if req.path.match /\.(html|css|js|map|png|svg|json|gif|ttf|py)$/
         # Statically serve .{asset} files
         next()
     else
