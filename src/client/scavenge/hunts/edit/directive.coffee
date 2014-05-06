@@ -52,7 +52,7 @@ ScriptsControl = ->
 
 angular.module('teals.hunts.editor.directive', [
 ]).controller('HuntEditCtrl', HuntEditCtrl)
-.directive 'scriptsValidator', ScriptsControl
+.directive('scriptsValidator', ScriptsControl)
 .directive 'huntEditor', ->
     replace: false
     restrict: 'AE'

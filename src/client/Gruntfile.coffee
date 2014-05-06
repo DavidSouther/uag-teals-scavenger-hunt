@@ -117,7 +117,12 @@ module.exports = (grunt)->
         'src/client/tools/*.coffee': [ 'coffee' ]
         'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
 
-    cover = if process.env.DEBUG then 'coffee' else 'coverage'
+    cover =
+        if process.env.DEBUG and not process.env.COVER
+            'coffee'
+        else
+            'coverage'
+
     for type in appFileOrdering
         if type.indexOf('.coffee') > -1
             preprocessors[type] = [cover]

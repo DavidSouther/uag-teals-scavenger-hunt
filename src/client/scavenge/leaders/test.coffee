@@ -49,10 +49,10 @@ describe 'Leaders', ->
             $provide.value 'leaderservice', mockLeaders
 
     describe 'Directive', ->
-        beforeEach module 'teals.leaders.directive', 'teals.hunts.service.mock',
-            ($provide)->
-                $provide.value 'leaderservice', {leaders: mockLeaders}
-                undefined
+        beforeEach module 'teals.leaders.directive', ($provide)->
+            $provide.value 'leaderservice', {leaders: mockLeaders}
+            $provide.value 'huntservice', global.HUNT_SERVICE
+            undefined
 
         it 'shows the leader board', ->
             $element = render 'leaders'
