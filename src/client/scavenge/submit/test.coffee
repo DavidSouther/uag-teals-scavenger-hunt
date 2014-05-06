@@ -38,27 +38,7 @@ describe 'Submissions', ->
         $provide.value 'fileReader', mockFileReader
         $provide.value 'students',
             students: ['David Souther', 'Thomas Bijesse']
-        $provide.value 'huntservice',
-            checkScriptName: (name)->
-                name in ["hello.py", "count5.py"]
-            itemList: [
-                name: "hello.py"
-                description: "print \"Hello, TEALS UAG!\""
-                points: 4
-            ,
-                name: "count5.py"
-                description: "Print 1 through 5."
-                points: 1
-            ]
-            items:
-                "hello.py":
-                    name: "hello.py"
-                    description: "print \"Hello, TEALS UAG!\""
-                    points: 4
-                "count5.py":
-                    name: "count5.py"
-                    description: "Print 1 through 5."
-                    points: 1
+        $provide.value 'huntservice', global.HUNT_SERVICE
         undefined
 
     beforeEach module(

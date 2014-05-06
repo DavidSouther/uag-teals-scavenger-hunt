@@ -6,14 +6,17 @@ describe 'Leaders', ->
         ]
 
     describe 'Service', ->
-        beforeEach module 'teals.leaders.service', 'teals.hunts.service.mock'
+        beforeEach module 'teals.leaders.service', ($provide)->
+            $provide.value 'huntservice', global.HUNT_SERVICE
+            undefined
+
         $httpBackend = null
         beforeEach inject (_$httpBackend_)->
             $httpBackend = _$httpBackend_
-            $httpBackend.whenGET('/leaders')
+            $httpBackend.whenGET('/api/leaders')
             .respond 200, JSON.stringify mockLeaders
 
-            $httpBackend.expectGET('/leaders')
+            $httpBackend.expectGET('/api/leaders')
 
         afterEach ->
             $httpBackend.verifyNoOutstandingExpectation()

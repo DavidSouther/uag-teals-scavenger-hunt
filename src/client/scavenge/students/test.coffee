@@ -6,29 +6,26 @@ describe 'Students', ->
         $httpBackend = null
         beforeEach inject (_$httpBackend_)->
             $httpBackend = _$httpBackend_
-            $httpBackend.whenGET('/api/students.json')
-            .respond 200, JSON.stringify
-                students: [
-                    {
-                        name: 'David Souther'
-                        email: 'davidsouther@gmail.com'
-                        roles: {teacher: true}
-                    },
-                    {
-                        name: 'Thomas Bijesse'
-                        email: 'tbijesse@uagateway.com',
-                        roles: {}
-                    }
-                ]
+            $httpBackend.whenGET('/api/v1/students')
+            .respond 200, JSON.stringify [
+                name: 'David Souther'
+                email: 'davidsouther@gmail.com'
+                roles: {teacher: true}
+            ,
+                name: 'Thomas Bijesse'
+                email: 'tbijesse@uagateway.com',
+                roles: {}
+            ]
 
         afterEach ->
             $httpBackend.verifyNoOutstandingExpectation()
             $httpBackend.verifyNoOutstandingRequest()
 
-        it 'exposes students', inject (students)->
-            $httpBackend.expectGET('/api/students.json')
+        it 'exposes students', inject (_students_)->
+            studentsvc = _students_
+            $httpBackend.expectGET('/api/v1/students')
             $httpBackend.flush()
-            students.students.length.should.equal 2
+            studentsvc.students.length.should.equal 3, '3 students'
 
     describe 'controller', ->
         beforeEach module 'teals.students.directive'

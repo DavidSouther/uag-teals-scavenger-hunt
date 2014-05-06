@@ -113,6 +113,7 @@ module.exports = (grunt)->
 
     preprocessors =
         'src/client/**/*test.coffee': [ 'coffee' ]
+        'src/client/**/*mock.coffee': [ 'coffee' ]
         'src/client/tools/*.coffee': [ 'coffee' ]
         'src/client/**/*.jade': [ 'jade', 'ng-html2js' ]
 
@@ -139,6 +140,7 @@ module.exports = (grunt)->
                         # 'bower_components/angular-animate/angular-animate.js'
                         'bower_components/angular-cookies/angular-cookies.js'
                         'bower_components/angular-mocks/angular-mocks.js'
+                        'src/client/**/*mock.coffee'
                         'src/client/tools/**/*'
                         appFileOrdering
                         grunt.expandFileArg('src/client', '**/')

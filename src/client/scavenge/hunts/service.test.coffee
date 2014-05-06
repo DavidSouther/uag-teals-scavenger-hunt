@@ -6,7 +6,7 @@ describe 'Scavenger Hunts', ->
         $httpBackend = _$httpBackend_
         $httpBackend.expectGET('/api/v1/hunts')
         $httpBackend.whenGET('/api/v1/hunts')
-        .respond 200, JSON.stringify
+        .respond 200, JSON.stringify [
             name: 'Intro'
             scripts: [
                 name: "hello.py",
@@ -17,6 +17,7 @@ describe 'Scavenger Hunts', ->
                 description: "Print 1 through 5.",
                 points: 1
             ]
+        ]
 
     afterEach ->
         $httpBackend.verifyNoOutstandingExpectation()
@@ -24,13 +25,13 @@ describe 'Scavenger Hunts', ->
 
     describe 'Service', ->
         it 'has an item list', inject (huntservice)->
-            should.exist huntservice.items
+            should.exist huntservice.hunts
             $httpBackend.flush()
-            Object.keys(huntservice.items).length.should.equal 2
-            huntservice.itemList[1].id.should.equal 2
+            Object.keys(huntservice.hunts[0])
+            .should.deep.equal ['name', 'scripts', '_items']
+            huntservice.hunts[0].scripts[1].id.should.equal 2, 'id'
 
         it 'checks files', inject (huntservice)->
             $httpBackend.flush()
             huntservice.checkScriptName('hello.py').should.equal true
             huntservice.checkScriptName('sumALL.py').should.equal false
-
