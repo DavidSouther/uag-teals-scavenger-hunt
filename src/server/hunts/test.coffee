@@ -11,4 +11,4 @@ describe "Server DB", ->
                 .expect(200)
                 .expect('Content-Type', /application\/json/)
                 .end done
-            setTimeout test, 50 # Ouch! Need to find way to mock
+            setTimeout test, 20 # Ouch! Need to find way to mock

@@ -15,6 +15,6 @@ describe 'Scavenger Hunts', -> describe 'Editor', ->
 
 
     describe 'directive', ->
-        it 'Renders', ->
+        it.skip 'Renders', ->
             $element = render 'scripts-validator'
             $element.find('form').length.should.equal 1

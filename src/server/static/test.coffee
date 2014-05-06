@@ -1,6 +1,8 @@
 should = require "should"
 global.root = require('path').join('.')
 app = require('express')()
+
+# TODO This depends on a successful build
 app.use(require('./handler'))
 request = require('supertest')(app)
 

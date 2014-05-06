@@ -7,8 +7,8 @@ describe "Server DB", ->
     describe "students", ->
         it "returns a list of students", (done)->
             test = ->
-                request.get('/api/students.json')
+                request.get('/api/v1/students')
                 .expect(200)
                 .expect('Content-Type', /application\/json/)
                 .end done
-            setTimeout test, 100 # Ouch! Need to find way to mock
+            setTimeout test, 20 # Ouch! Need to find way to mock
