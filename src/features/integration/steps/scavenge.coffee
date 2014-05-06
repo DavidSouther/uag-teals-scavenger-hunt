@@ -41,6 +41,11 @@ module.exports = ->
             else
                 true
 
+    @When /toggle the "([^"]+)" hunt/, (title)=>
+        selector = mappings["hunt table toggle"]# + ":contains('#{title}')"
+        @world.find(selector)
+        .click().then => @protractor.waitForAngular()
+
     @Then /should see "([^"]+)" in the "([^"]*)"/, (text, field)=>
         selector = mappings[field]
         @world.find(selector)

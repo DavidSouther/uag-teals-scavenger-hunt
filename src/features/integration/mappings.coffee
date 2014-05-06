@@ -7,3 +7,5 @@ module.exports =
     'leaderboard': 'leaders table'
 
     'student login': 'a#mock_student_login'
+
+    'hunt table toggle': '.hunts thead>tr:nth-child(1)'
