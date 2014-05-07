@@ -1,9 +1,12 @@
 #!/bin/sh
-ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/mongo!!')"
-source $ROOTDIR/etc/environment.sh
+ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/build/deploy/mongo!!')"
+source $ROOTDIR/env/environment.sh
+SNAPS=$ROOTDIR/snapshots
 
-DUMP=snapshot_$(date +%Y-%m-%dT%H-%M-%S)
-
+mkdir "$SNAPS"
+TAG=${NODE_ENV}_$(date +%Y-%m-%dT%H-%M-%S)
+DUMP="${SNAPS}/${TAG}"
+set -x
 mongodump --port $MONGO_PORT --out $DUMP
-tar cf $DUMP.tar $DUMP
+tar czf $DUMP.tgz $DUMP
 rm -rf $DUMP

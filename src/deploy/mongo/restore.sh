@@ -1,6 +1,6 @@
 #!/bin/sh
-ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/mongo!!')"
-source $ROOTDIR/etc/environment.sh
+ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/build/deploy/mongo!!')"
+source $ROOTDIR/env/environment.sh
 
 [ -f "$1" ] || { echo 'No file for restore.' ; exit 1 ; }
 

@@ -17,6 +17,7 @@ module.exports = (grunt)->
         ['.', 'src', 'features']
         ['.', 'src', 'server']
         ['.', 'src', 'client']
+        ['.', 'src', 'deploy']
     ]
     .map((dir)->Path.join.apply null, dir)
     .map(grunt.grunt)
@@ -58,7 +59,7 @@ module.exports = (grunt)->
 
     grunt.registerTask 'test',
         'Run all non-component tests.',
-        [ 'features' ]
+        [ 'testClient', 'testServer', 'features' ]
     grunt.registerTask 'build',
         'Prepare distributable components.',
         [ 'client' ]
@@ -68,13 +69,10 @@ module.exports = (grunt)->
         [ 'jshint', 'coffeelint' ]
     grunt.registerTask 'base',
         'Perform component specific prep and test steps.',
-        [ 'clean:all', 'linting', 'build', 'server' ]
+        [ 'clean:all', 'linting', 'deploy' ]
+
     grunt.registerTask 'default',
         'Perform all Prepare and Test tasks.',
         [ 'base', 'test' ]
-
-    grunt.registerTask 'deploy',
-        'Prepare chrome, run no tests.'
-        [ 'client', 'copy:vendors' ]
 
     grunt.finalize()

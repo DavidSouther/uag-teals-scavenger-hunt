@@ -1,9 +1,9 @@
 #!/bin/sh
-ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/env!!')"
+ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/build/deploy/env!!')"
 
 APPBRANCH=uagteals
 
-ETC="$ROOTDIR/etc"
+ETC="$ROOTDIR/env"
 
 rm -rf $ETC 2>/dev/null
 

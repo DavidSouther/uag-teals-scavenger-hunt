@@ -1,10 +1,10 @@
 #!/bin/sh
-ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/src/deploy/mongo!!')"
-source $ROOTDIR/etc/environment.sh
+ROOTDIR="$(cd "$(dirname $0)" && pwd | sed 's!/build/deploy/mongo!!')"
+source $ROOTDIR/env/environment.sh
 
-LOGPATH="$ROOTDIR/var/mongo.log"
-PIDPATH="$ROOTDIR/var/mongo.pid"
-DBPATH="$ROOTDIR/var/db"
+LOGPATH="$ROOTDIR/run/mongo.log"
+PIDPATH="$ROOTDIR/run/mongo.pid"
+DBPATH="$ROOTDIR/run/db"
 
 mkdir -p $DBPATH
 mongod --fork \

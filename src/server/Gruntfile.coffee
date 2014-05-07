@@ -7,6 +7,14 @@ module.exports = (grunt)->
                 options:
                     reporter: 'spec'
                 src: testFiles
+        copy:
+            server:
+                files: [
+                    expand: true
+                    cwd: 'src/server'
+                    src: ['**/*', '!**/*test*']
+                    dest: 'build/server'
+                ]
         watch:
             server:
                 files: testFiles
@@ -24,4 +32,5 @@ module.exports = (grunt)->
 
     grunt.registerTask 'server', 'Prepare the server.', [
         'testServer'
+        'copy:server'
     ]

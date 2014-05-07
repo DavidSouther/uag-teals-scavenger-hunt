@@ -1,7 +1,13 @@
+# package manager folders
 node_modules
-build
 bower_components
+
+# project deploy managed folders
+build/
 submissions/
 var/
 etc/
-
+reports/
+run/
+snapshots/
+env/
