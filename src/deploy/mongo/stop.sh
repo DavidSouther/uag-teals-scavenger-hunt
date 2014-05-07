@@ -5,3 +5,4 @@ source $ROOTDIR/env/environment.sh
 PIDPATH="$ROOTDIR/run/mongo.pid"
 
 kill $(cat $PIDPATH)
+rm $PIDPATH

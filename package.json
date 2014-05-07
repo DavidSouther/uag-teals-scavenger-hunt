@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/.bin/bower update --force --config.interactive=0 ; npm run deploy",
     "start": "sh ./build/deploy/node/start.sh",
+    "stop": "sh ./build/deploy/node/stop.sh",
     "test": "node ./node_modules/.bin/grunt test",
     "deploy": "node ./node_modules/.bin/grunt deploy",
     "dump": "sh ./build/deploy/mongo/dump.sh",
