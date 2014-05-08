@@ -7,13 +7,12 @@ source $ROOTDIR/env/environment.sh
 # Check that we aren't already started
 [ -f $ROOTDIR/run/node.pid ] && {
     echo "Node already running ($(cat $ROOTDIR/run/node.pid))!"
-    exit 1;
+    exit 0;
 }
 
 # Start mongo, if needed
 [ -f $ROOTDIR/run/mongo.pid ] || {
     sh $ROOTDIR/build/deploy/mongo/start.sh
-    sleep 1 ;# Let mongod start
 }
 
 [ -f $ROOTDIR/run/node.log ] && {

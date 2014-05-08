@@ -6,6 +6,11 @@ LOGPATH="$ROOTDIR/run/mongo.log"
 PIDPATH="$ROOTDIR/run/mongo.pid"
 DBPATH="$ROOTDIR/run/db"
 
+[ -f $PIDATH ] && {
+    echo 'Mongo already running (pid $(cat $PIDATH))'
+    exit 0;
+}
+
 mkdir -p $DBPATH
 mongod --fork \
     --config /dev/null \
@@ -14,3 +19,5 @@ mongod --fork \
     --pidfilepath $PIDPATH \
     --port $MONGO_PORT \
     $MONGO_OPTS
+
+sleep 1
