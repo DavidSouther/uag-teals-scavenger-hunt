@@ -4,15 +4,13 @@ echo "Starting in $ROOTDIR"
 
 source $ROOTDIR/env/environment.sh
 
+# Start mongo, if needed
+sh $ROOTDIR/build/deploy/mongo/start.sh
+
 # Check that we aren't already started
 [ -f $ROOTDIR/run/node.pid ] && {
     echo "Node already running ($(cat $ROOTDIR/run/node.pid))!"
     exit 0;
-}
-
-# Start mongo, if needed
-[ -f $ROOTDIR/run/mongo.pid ] || {
-    sh $ROOTDIR/build/deploy/mongo/start.sh
 }
 
 [ -f $ROOTDIR/run/node.log ] && {

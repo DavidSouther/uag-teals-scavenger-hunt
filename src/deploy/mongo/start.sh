@@ -6,8 +6,8 @@ LOGPATH="$ROOTDIR/run/mongo.log"
 PIDPATH="$ROOTDIR/run/mongo.pid"
 DBPATH="$ROOTDIR/run/db"
 
-[ -f $PIDATH ] && {
-    echo 'Mongo already running (pid $(cat $PIDATH))'
+[ -f "$PIDPATH" ] && {
+    echo "Mongo already running (pid $(cat $PIDPATH))!";
     exit 0;
 }
 
