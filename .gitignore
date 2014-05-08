@@ -1,13 +1,13 @@
 # package manager folders
-node_modules
-bower_components
+/node_modules
+/bower_components
 
 # project deploy managed folders
-build/
-submissions/
-var/
-etc/
-reports/
-run/
-snapshots/
-env/
+/build
+/env
+/etc
+/reports
+/run
+/snapshots
+/submissions
+/var
