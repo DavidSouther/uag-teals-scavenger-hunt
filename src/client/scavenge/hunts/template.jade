@@ -2,13 +2,13 @@
 
     table.table.table-striped(
         ng-repeat="hunt in hunts.hunts"
-        ng-init="order = 'id'; direction = {}; search = ''; expand = false"
+        ng-init="order = 'idx'; direction = {}; search = ''; expand = false"
     )
         thead
             tr(ng-click="expand = !expand")
                 th(colspan=5) {{hunt.name}}
             tr(ng-show="expand")
-                th(sort='id', width="15%") Program
+                th(sort='idx', width="15%") Program
                 th(sort='name', width="15%") Name
                 th
                     form.form-inline(role="form")
@@ -25,7 +25,7 @@
                 th.visible-print(width='10%') Finished
         tbody(ng-show="expand")
             tr(ng-repeat="item in hunt.scripts | orderBy:order:direction[order] | filter:search")
-                td {{ item.id }}
+                td {{ item.idx }}
                 td {{ item.name }}
                 td {{ item.description }}
                 td {{ item.points }}

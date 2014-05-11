@@ -28,8 +28,8 @@ describe 'Scavenger Hunts', ->
             should.exist huntservice.hunts
             $httpBackend.flush()
             Object.keys(huntservice.hunts[0])
-            .should.deep.equal ['name', 'scripts', '_items']
-            huntservice.hunts[0].scripts[1].id.should.equal 2, 'id'
+            .should.deep.equal ['name', 'scripts', '_map']
+            huntservice.hunts[0].scripts[1].idx.should.equal 2, 'idx'
 
         it 'checks files', inject (huntservice)->
             $httpBackend.flush()
