@@ -30,11 +30,11 @@
                     scripts-validator
                 )
         .row(ng-show="huntform.scripts.$invalid")
-            .col-md-12.bg-warning(
+            .col-md-12.alert.alert-warning(
                 ng-show="huntform.scripts.$error.json"
             ) Need valid JSON
         .row(ng-show="huntform.scripts.$invalid")
-            .col-md-12.bg-warning(
+            .col-md-12.alert.alert-warning(
                 ng-show="huntform.scripts.$error.isArray"
             ) Expects array of programs.
         .row(ng-show="!huntform.$invalid && hunteditor.parses && ! hunteditor.saved.success")
@@ -44,5 +44,5 @@
                     ng-click="hunteditor.save()"
                 ) Submit
         .row(ng-show="hunteditor.saved.success")
-            .col-md-12.bg-success
+            .col-md-1.alert.alert-success
                 | Hunt Saved.
