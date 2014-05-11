@@ -10,7 +10,7 @@ PIDPATH=$ROOTDIR/run/node.pid
     exit 0 ;
 }
 
-kill $(cat PIDPATH)
+kill $(cat $PIDPATH)
 rm $PIDPATH
 
 sh $ROOTDIR/build/deploy/mongo/stop.sh
