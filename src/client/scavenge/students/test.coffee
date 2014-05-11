@@ -25,8 +25,7 @@ describe 'Students', ->
             studentsvc = _students_
             $httpBackend.expectGET('/api/v1/students')
             $httpBackend.flush()
-            studentsvc.students.length.should.equal 3, '3 students'
+            studentsvc.students.length.should.equal 2, '2 students'
 
     describe 'controller', ->
         beforeEach module 'teals.students.directive'
-
