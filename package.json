@@ -8,9 +8,10 @@
     "deploy": "node ./node_modules/.bin/grunt deploy",
     "start": "sh ./build/deploy/node/start.sh",
     "stop": "sh ./build/deploy/node/stop.sh",
+    "restart": "npm stop ; npm start ;",
     "snapshot": "sh ./build/deploy/mongo/dump.sh",
     "drop": "sh ./build/deploy/mongo/drop.sh",
-    "restore": "sh ./build/deploy/mongo/restore.sh $1"
+    "restore": "sh ./build/deploy/mongo/restore.sh"
   },
   "author": "David Souther <davidsouther@gmail.com> (http://davidsouther.com)",
   "license": "MIT",

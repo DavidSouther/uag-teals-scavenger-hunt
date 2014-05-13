@@ -60,6 +60,7 @@ module.exports = (grunt)->
     grunt.registerTask 'test',
         'Run all non-component tests.',
         [ 'testClient', 'testServer', 'features' ]
+
     grunt.registerTask 'build',
         'Prepare distributable components.',
         [ 'client' ]
@@ -67,12 +68,13 @@ module.exports = (grunt)->
     grunt.registerTask 'linting',
         'Lint all files.',
         [ 'jshint', 'coffeelint' ]
+
     grunt.registerTask 'base',
         'Perform component specific prep and test steps.',
-        [ 'clean:all', 'linting', 'deploy' ]
+        [ 'clean:all', 'linting', 'client', 'server', 'deploy', 'features' ]
 
     grunt.registerTask 'default',
         'Perform all Prepare and Test tasks.',
-        [ 'base', 'test' ]
+        [ 'base' ]
 
     grunt.finalize()

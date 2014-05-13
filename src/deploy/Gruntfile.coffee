@@ -11,4 +11,4 @@ module.exports = (grunt)->
 
     grunt.registerTask 'deploy',
         'Move deploy management scripts to the right places.',
-        [ 'client', 'server', 'copy:deploy' ]
+        [ 'copy:deploy' ]
