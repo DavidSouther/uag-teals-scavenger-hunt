@@ -9,7 +9,7 @@ describe "Server DB", ->
             Ctor = require('./model')
             inst = new Ctor()
 
-        it.skip "returns a list of submissions", (done)->
+        it "returns a list of submissions", (done)->
             test = ->
                 request.get('/api/v1/submissions')
                 .expect(200)

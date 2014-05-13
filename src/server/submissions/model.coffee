@@ -15,6 +15,6 @@ submissionSchema = Schema({
         type: Boolean
         default: false
 })
-Submission = mongoose.model 'sumbission', submissionSchema
+Submission = mongoose.model 'submission', submissionSchema
 
 module.exports = Submission
