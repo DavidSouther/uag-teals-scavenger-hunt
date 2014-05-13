@@ -26,7 +26,7 @@ module.exports = (grunt)->
         jshint:
             options:
                 jshintrc: '.jshintrc'
-            files:[
+            files: [
                 'src/**/*.js'
                 '!src/client/assets/**'
             ]

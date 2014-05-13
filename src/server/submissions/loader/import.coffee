@@ -9,6 +9,10 @@ mongoose = require 'mongoose'
 
 SUBMISSIONS_DIR = process.argv[2]
 
+unless SUBMISSIONS_DIR
+    logger.warn 'Need a submissions directory!'
+    return
+
 saveSubmission = (submission)->
     submission.saveQ().then ->
         logger.info "Saved #{submission.script} for #{submission.studentEmail}!"
@@ -32,13 +36,17 @@ saveStudentSubmissions = (student, dir, hunt)->
 loadStudentSubmissions = (hunt)-> (studentDir)->
     studentDir = path.join SUBMISSIONS_DIR, studentDir
     logger.info "Loading #{studentDir}..."
-    Students.findOneQ({name: Students.expandName(studentDir)})
+    name = Students.expandName(studentDir)
+    Students.findOneQ({name})
     .then (student)->
         logger.info "Loaded #{student.name}!"
         logger.data JSON.stringify student
         fs.readdir studentDir, (err, list)->
             return logger.error(err) if err
             list.forEach saveStudentSubmissions(student, studentDir, hunt)
+    .fail (err)->
+        logger.error "Couldn't find #{name}!"
+        throw new Exception "Student #{name} not found"
 
 loadSubmissions = (hunt)->
     submissionsDir = path.join SUBMISSIONS_DIR
@@ -51,5 +59,9 @@ Hunts.findQ({name: "Intro"})
 .then (hunt)->
     loadSubmissions hunt
 .fail (err)->
-    logger.error err
+    logger.error 'Exception loading submissions!'
+    logger.data err
+    logger.data arguments
     throw err
+
+undefined
