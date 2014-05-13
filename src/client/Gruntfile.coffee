@@ -154,10 +154,10 @@ module.exports = (grunt)->
                         cacheIdFromPath: jadeTemplateId
                         moduleName: 'teals.templates'
                     junitReporter:
-                        outputFile: 'reports/karma.xml'
+                        outputFile: 'build/reports/karma.xml'
                     coverageReporter:
                         type: 'lcov'
-                        dir: 'reports/coverage/'
+                        dir: 'build/reports/coverage/'
 
     grunt.registerTask 'testClient',
         'Run karma tests against the client.',
