@@ -6,6 +6,7 @@ module.exports = (grunt)->
         '**/template.jade'
         '**/main.coffee'
         '**/service.coffee'
+        '**/controller.coffee'
         '**/directive.coffee'
     ].map((a)->"src/client/#{a}").reduce flatten, []
 
@@ -98,6 +99,7 @@ module.exports = (grunt)->
         coffee:
             options:
                 bare: false
+                sourceMap: true
             client:
                 files:
                     'build/client/app.js': appFileOrdering

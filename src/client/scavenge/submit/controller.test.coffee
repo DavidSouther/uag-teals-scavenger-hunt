@@ -1,4 +1,13 @@
 describe 'Submissions', ->
+    getController = do ->
+        _ctrl = _scope = undefined
+        (scope = _scope, $controller = _ctrl)->
+            _ctrl = $controller
+            _scope = scope
+            ctrl = $controller('SubmissionsCtrl', {$scope: scope})
+            scope.$digest()
+            ctrl
+
     countScript = 'for i in range(1, 6):\n\tprint i\n'
     mockFileReader =
         readAsText: (file, scope)->
@@ -10,31 +19,7 @@ describe 'Submissions', ->
                 promise = defer.promise
             promise
 
-    getController = do ->
-        _ctrl = _scope = undefined
-        (scope = _scope, $controller = _ctrl)->
-            _ctrl = $controller
-            _scope = scope
-            ctrl = $controller('SubmissionsCtrl', {$scope: scope})
-            scope.$digest()
-            ctrl
-
-    angular.module('teals.fileInput.directive.override', [])
-    .directive 'fileInput', ->
-        restrict: 'EA'
-        template: '<span></span>'
-        replace: true
-        terminal: true
-        priority: 10000
-    .directive 'input', ->
-        restrict: 'E'
-        template: '<span></span>'
-        replace: true
-        terminal: true
-        priority: 10000
-
     testOverride = ($provide)->
-        # $provide.value '$window', {localStorage}
         $provide.value 'fileReader', mockFileReader
         $provide.value 'students',
             students: ['David Souther', 'Thomas Bijesse']
@@ -42,10 +27,14 @@ describe 'Submissions', ->
         undefined
 
     beforeEach module(
-        'teals.submissions.directive'
-        'teals.fileInput.directive.override'
+        'teals.submissions.controller'
         testOverride
     )
+
+    $httpBackend = null
+    beforeEach inject (_$httpBackend_)->
+        $httpBackend = _$httpBackend_
+        global.SUBMISSION_MOCK.wire $httpBackend
 
     localStorage = null
     beforeEach inject ($window)->
@@ -62,10 +51,6 @@ describe 'Submissions', ->
             scope = $rootScope.$new()
             $controller = $injector.get('$controller')
             ctrl = getController(scope, $controller)
-
-            $httpBackend = $injector.get('$httpBackend')
-            $httpBackend.whenPOST('/submissions')
-            .respond 200, '{"status": "success", "log": ""}'
 
         it 'instantiates', ->
             should.exist ctrl
@@ -88,7 +73,7 @@ describe 'Submissions', ->
             ctrl.script.should.equal countScript
 
         it 'submits files', ->
-            $httpBackend.expectPOST('/submissions')
+            $httpBackend.expectPOST('/api/v1/submissions')
             ctrl.file = {name: 'count5.py'}
             ctrl.loadScript()
             $timeout.flush()
@@ -112,9 +97,3 @@ describe 'Submissions', ->
             ctrl = getController()
             ctrl.locked.should.equal true
             ctrl.student.should.equal 'David Souther'
-
-    describe 'directive', ->
-        it 'renders', ->
-            $element = render 'submissions'
-            should.exist $element, 'Element rendered'
-            $element.find('div').length.should.be.greaterThan 3
