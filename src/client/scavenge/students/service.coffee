@@ -17,6 +17,12 @@ class StudentService
     saveAll: ->
         student.$save() for student in @students
 
+    byEmail: (email)->
+        if @students.$resolved
+            @students._map[email]
+        else
+            {name: "Loading...", email: "loading"}
+
 StudentService.$inject = [
     '$resource'
 ]

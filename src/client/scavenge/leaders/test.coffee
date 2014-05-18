@@ -1,11 +1,11 @@
-describe 'Leaders', ->
+describe.skip 'Leaders', ->
     mockLeaders =
         "DavidSouther": [
             "count5.py",
             "sumAll.py"
         ]
 
-    describe 'Service', ->
+    describe.skip 'Service', ->
         beforeEach module 'teals.leaders.service', ($provide)->
             $provide.value 'huntservice', global.HUNT_SERVICE
             undefined

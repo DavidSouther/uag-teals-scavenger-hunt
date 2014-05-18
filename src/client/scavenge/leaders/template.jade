@@ -11,16 +11,15 @@
             tr(
                 ng-repeat="leader in leaders.leaders | orderBy:order:direction[order]"
                 ng-init="expandProgramList = false"
+                ng-click="expandProgramList = !expandProgramList"
             ).leader
                 td {{ leader.name | expandName}}
-                td._programs(
-                    ng-click="expandProgramList = !expandProgramList"
-                )
-                    b(ng-init="l = leader.finished") {{ l }} program{{ l > 1 ? 's' : ''}}
+                td._programs
+                    b {{ leader.programs.length }} program{{ leader.programs.length > 1 ? 's' : ''}}
                     ul.programs(ng-show="expandProgramList")
                         li._name(
-                            ng-repeat="filename in leader.programs"
+                            ng-repeat="program in leader.programs"
                         )
-                            | {{ filename }}
+                            | {{ program.name }}
                 td {{ leader.points }}
                 td {{ leader.tickets }}

@@ -1,5 +1,5 @@
 class LeadersService
-    constructor: (@huntservice, $http)->
+    constructor: (@huntservice, @submissionSvc)->
         @leaders = []
         $http.get('/api/leaders').then (response)=>
             @parseLeaders response.data
@@ -29,26 +29,59 @@ ExpandFilter = (name)->
     "#{first} #{last}"
 
 class LeadersCtrl
-    constructor: (@leaderservice)->
-        @leaders = @leaderservice.leaders
+    constructor: ($scope, @huntsvc, @submissionsvc, @studentsvc)->
+        $scope.$watch @submissionsvc.submissions, =>
+            @buildLeaderSet().then => @buildLeaderList()
+
+    buildLeaderSet: ->
+        @leaderSet = {}
+        @submissionsvc.submissions.$promise.then (submissions)=>
+            submissions.forEach (submission)=>
+                (
+                    @leaderSet[submission.studentEmail] =
+                        @leaderSet[submission.studentEmail] || []
+                ).push submission
+
+    buildLeaderList: ->
+        @leaders = []
+        for e, p of @leaderSet
+            do (email = e, programs = p)=>
+                name = @studentsvc.byEmail(email).name
+                programs = programs
+                    # .filter((p)->p.accepted)
+                    .map((p)=> @huntsvc.findScript(p.script))
+                    .filter((p)->p?)
+                points = @points(programs)
+                tickets = @tickets(points)
+                @leaders.push {name, programs, points, tickets}
+
+    points: (programs)->
+        reduction = (points, program)=>
+            points += @huntsvc.findScript(program.name)?.points || 0
+        programs.reduce reduction, 0
+
+    tickets: (points)->
+        Math.ceil(points / 10)
 
 LeadersCtrl.$inject = [
-    'leaderservice'
+    '$scope'
     'huntservice'
+    'submissionsSvc'
+    'students'
 ]
 
 angular.module('teals.leaders.service', [])
-.filter('expandName', ->ExpandFilter)
 .service 'leaderservice', (huntservice, $http)->
     new LeadersService huntservice, $http
 
-
 angular.module('teals.leaders.directive', [
-    'teals.leaders.service'
+    'teals.students.service'
     'teals.hunts.service'
+    'teals.submissions.service'
     'teals.templates'
     'th.sort'
 ])
+.filter('expandName', ->ExpandFilter)
 .controller('LeadersCtrl', LeadersCtrl)
 .directive 'leaders', ->
     restrict: 'EA'

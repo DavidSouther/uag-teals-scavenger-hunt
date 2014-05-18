@@ -99,7 +99,7 @@ module.exports = (grunt)->
         coffee:
             options:
                 bare: false
-                sourceMap: true
+                join: true
             client:
                 files:
                     'build/client/app.js': appFileOrdering
