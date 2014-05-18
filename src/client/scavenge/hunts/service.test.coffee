@@ -35,3 +35,7 @@ describe 'Scavenger Hunts', ->
             $httpBackend.flush()
             huntservice.checkScriptName('hello.py').should.equal true
             huntservice.checkScriptName('sumALL.py').should.equal false
+
+         it 'finds hunts by filename', inject (huntservice)->
+            $httpBackend.flush()
+            huntservice.findHunt('count5.py').name.should.equal 'Intro'

@@ -14,6 +14,7 @@ class SubmissionsCtrl
         if $cookies.li is '1'
             @locked = true
             @student = $cookies.name
+            @email = $cookies.email
 
         @$scope.$watch (=>@student), (o, n)=>
             @$window.localStorage.student = @student unless o is n
@@ -43,9 +44,10 @@ class SubmissionsCtrl
 
     submit: ->
         @submissions.submit({
-            name: @student
-            file: @file.name
-            script: "'''\n#{@comments}\n'''\n#{@script}"
+            studentEmail: @email
+            hunt: @huntservice.findHunt(@file.name).name
+            script: @file.name
+            content: "'''\n#{@comments}\n'''\n#{@script}"
         }).then(
             (_)=>
                 if _._id.match /[0-9a-f]{24}/

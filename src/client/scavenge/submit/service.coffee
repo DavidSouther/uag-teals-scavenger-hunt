@@ -1,5 +1,5 @@
 class SubmissionsSvc
-    constructor: ($resource)->
+    constructor: ($resource, @$cookies)->
         @Submission = $resource('/api/v1/submissions')
         @submissions = @Submission.query()
 
@@ -11,8 +11,10 @@ class SubmissionsSvc
 
 SubmissionsSvc.$inject = [
     '$resource'
+    '$cookies'
 ]
 
 angular.module('teals.submissions.service', [
     'ngResource'
+    'ngCookies'
 ]).service 'submissionsSvc', SubmissionsSvc

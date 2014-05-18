@@ -10,6 +10,12 @@ class ScavengerHuntsService
                 hunt.scripts.reduce ((a, b)->a[b.name] = b; a), hunt._map
             defer.resolve(@hunts)
 
+    findHunt: (name)->
+        for hunt in @hunts
+            if hunt._map[name]?
+                return hunt
+        null
+
     findScript: (name)->
         for hunt in @hunts
             if hunt._map[name]?

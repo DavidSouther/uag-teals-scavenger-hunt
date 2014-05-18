@@ -22,6 +22,9 @@ global.HUNT_SERVICE =
                 points: 1
     ]
 
+    findHunt: (name)->
+        if @hunts[0]._items[name]? then @hunts[0] else null
+
     findScript: (name)->
         @hunts[0]._items[name]
 

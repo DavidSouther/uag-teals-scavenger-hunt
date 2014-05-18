@@ -3,7 +3,7 @@ mongoose = require('../db')
 Schema = mongoose.Schema
 submissionSchema = Schema({
     studentEmail: String # Email student string
-    hunt: String # Name of the parent hunt 
+    hunt: String # Name of the parent hunt
     script: String # Name of the script
     content: String # Content of the script
     submitted: # Date Submitted most recently
