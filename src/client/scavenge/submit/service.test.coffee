@@ -11,3 +11,13 @@ describe 'Submissions', ->
             $httpBackend.expectGET('/api/v1/submissions')
             $httpBackend.flush()
             submissionsSvc.submissions.length.should.equal 2
+
+        it 'saves submissions', inject (submissionsSvc)->
+            submission =
+                studentEmail: 'davidsouther@gmail.com'
+                hunt: "Intro"
+                script: "hello.py"
+                content: "print 'hello'"
+            submissionsSvc.submit(submission)
+            $httpBackend.flush()
+            submissionsSvc.submissions.length.should.equal 3

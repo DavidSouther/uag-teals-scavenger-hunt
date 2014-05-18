@@ -3,9 +3,7 @@ mongoose = require('../db')
 Schema = mongoose.Schema
 submissionSchema = Schema({
     studentEmail: String # Email student string
-    hunt: # Reference to which hunt the script is in
-        type: Schema.ObjectId,
-        ref: 'hunt'
+    hunt: String # Name of the parent hunt 
     script: String # Name of the script
     content: String # Content of the script
     submitted: # Date Submitted most recently

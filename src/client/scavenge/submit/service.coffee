@@ -4,7 +4,10 @@ class SubmissionsSvc
         @submissions = @Submission.query()
 
     submit: (data)->
-        (new @Submission(data)).$save()
+        (submission = new @Submission(data)).$save()
+        .then =>
+            @submissions.push submission
+            submission
 
 SubmissionsSvc.$inject = [
     '$resource'
