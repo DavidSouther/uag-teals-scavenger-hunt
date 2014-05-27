@@ -9,6 +9,9 @@ class SubmissionsSvc
             @submissions.push submission
             submission
 
+    splitComment: (submission)->
+        submission.match(/'''\n((?:.|[\r\n])*)\n'''\n((?:.|[\r\n])*)/m)
+
 SubmissionsSvc.$inject = [
     '$resource'
     '$cookies'

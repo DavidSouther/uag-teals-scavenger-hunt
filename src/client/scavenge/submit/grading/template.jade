@@ -1,15 +1,24 @@
 .grading.jumbotron
-    table
-        thead(
+    table.table.table-striped
+        tbody(
             ng-repeat="(student, programs) in grading.byStudent"
             ng-init="show = false"
         )
             tr(ng-click="show = !show")
                 th(colspan="2") {{student}}
             tr(
-                ng-repeat="program in programs"
+                ng-repeat-start="program in programs"
                 ng-show="show"
             )
-                td {{ program.script }}
                 td
-                    pre {{ program.content }}
+                    b {{ program.script }}
+                td(
+                    width="55%"
+                    rowspan="2"
+                )
+                    pre {{ program | script }}
+            tr(
+                ng-repeat-end
+                ng-show="show"
+            )
+                td {{ program | comment }}

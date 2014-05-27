@@ -21,3 +21,22 @@ describe 'Submissions', ->
             submissionsSvc.submit(submission)
             $httpBackend.flush()
             submissionsSvc.submissions.length.should.equal 3
+
+        it 'parses programs', inject (submissionsSvc)->
+            program = "'''\ncomment\n'''\nprogram\nprogram"
+            parsed = submissionsSvc.splitComment program
+
+            parsed.length.should.equal 3
+            parsed[1].should.equal 'comment'
+            parsed[2].should.equal 'program\nprogram'
+
+        it 'parses programs with several lines of commentary',
+            inject (submissionsSvc)->
+                program = """'''\nraw input\nhave colors\nmorelines\n'''
+x = raw_input("what is your favorite colour?")"""
+                parsed = submissionsSvc.splitComment program
+                parsed.length.should.equal 3
+                parsed[1].should.equal "raw input\nhave colors\nmorelines"
+                parsed[2].should.equal(
+                    'x = raw_input("what is your favorite colour?")'
+                )

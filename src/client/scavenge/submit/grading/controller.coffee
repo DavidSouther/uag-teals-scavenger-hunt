@@ -16,4 +16,13 @@ GradingCtrl.$inject = [
 angular.module('teals.grading.controller', [
     'teals.submissions.service'
     'teals.hunts.service'
-]).controller(GradingCtrl.name, GradingCtrl)
+])
+.controller(GradingCtrl.name, GradingCtrl)
+.filter('comment', (submissionsSvc)->
+    (program)->
+        submissionsSvc.splitComment(program.content)[1]
+)
+.filter('script', (submissionsSvc)->
+    (program)->
+        submissionsSvc.splitComment(program.content)[2]
+)
