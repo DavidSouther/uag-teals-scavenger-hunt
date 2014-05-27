@@ -17,6 +17,9 @@ class ScavengerHuntsService
         null
 
     findScript: (name)->
+        # HACK for currDayOfWeek
+        if name is 'currDayOfWeek.py' then name = 'currDayOfWeek'
+        # END HACK
         for hunt in @hunts
             if hunt._map[name]?
                 return hunt._map[name]

@@ -16,6 +16,10 @@ describe 'Scavenger Hunts', ->
                 name: "count5.py",
                 description: "Print 1 through 5.",
                 points: 1
+            ,
+                name: "currDayOfWeek",
+                description: "HACK TEST",
+                points: 1
             ]
         ]
 
@@ -39,3 +43,8 @@ describe 'Scavenger Hunts', ->
          it 'finds hunts by filename', inject (huntservice)->
             $httpBackend.flush()
             huntservice.findHunt('count5.py').name.should.equal 'Intro'
+
+        it 'does a fuzzy find for currDayOfWeek', inject (huntservice)->
+            $httpBackend.flush()
+            huntservice.checkScriptName('count5').should.equal false
+            huntservice.checkScriptName('currDayOfWeek').should.equal true
