@@ -10,11 +10,17 @@ class ScavengerHuntsService
                 hunt.scripts.reduce ((a, b)->a[b.name] = b; a), hunt._map
             defer.resolve(@hunts)
 
+    byId: (id)->
+        for hunt in @hunts
+            if hunt._id is id
+                return hunt
+        {name: 'INVALID'}
+
     findHunt: (name)->
         for hunt in @hunts
             if hunt._map[name]?
                 return hunt
-        null
+        {name: 'INVALID'}
 
     findScript: (name)->
         # HACK for currDayOfWeek
@@ -23,7 +29,7 @@ class ScavengerHuntsService
         for hunt in @hunts
             if hunt._map[name]?
                 return hunt._map[name]
-        null
+        {name: 'INVALID.py', points: 0}
 
     checkScriptName: (name)->
         @findScript(name) isnt null

@@ -6,6 +6,7 @@ mod = angular.module('teals.scavenger', [
     'teals.students.directive'
     'teals.submissions.directive'
     'teals.grading.directive'
+    'teals.gradebook.directive'
     'teals.hunts.directive'
     'teals.hunts.editor.directive'
     'teals.nav.directive'
@@ -25,6 +26,8 @@ mod.config (
         template: '<leaders></leaders><huntlist></huntlist>'
     $routeProvider.when '/grading',
         template: '<grading></grading>'
+    $routeProvider.when '/gradebook',
+        template: '<gradebook></gradebook>'
     $routeProvider.when '/hunts',
         template: '<hunt-editor></hunt-editor>'
     $routeProvider.when '/login',

@@ -1,0 +1,20 @@
+.gradebook
+    table.table.table-striped
+        thead
+            tr
+                th Student
+                th Intro
+                th Strings and Integers
+                th Dates and Times
+        tbody
+            tr(ng-repeat="(student, hunts) in gradebook.service.book")
+                td {{student}}
+                td(ng-init="i = hunts['Intro']")
+                    | {{ i.grade | number:1 }},&nbsp;
+                    b {{ i.grade | letter }}
+                td(ng-init="s = hunts['Strings and Integers']")
+                    | {{ s.grade | number:1 }},&nbsp;
+                    b {{ s.grade | letter }}
+                td(ng-init="d = hunts['Dates and Times']")
+                    | {{ d.grade | number:1 }},&nbsp;
+                    b {{ d.grade | letter }}

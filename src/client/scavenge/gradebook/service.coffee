@@ -1,0 +1,53 @@
+class GradebookService
+    constructor: (@submissions, @hunts, @students, $q)->
+        @book = {}
+        promises = [
+            hunts.loaded
+            @submissions.submissions.$promise
+            @students.students.$promise
+        ]
+        $q.all.apply($q, promises)
+        .then (huntlist)=> # Huntlist is only one that passes a resolved object
+            @buildGradebook()
+            @curveGradebook()
+            true
+
+    buildGradebook: ->
+        @submissions.submissions.reduce ((b, s)=>@addSubmission(b, s)), @book
+        console.log @book
+
+    addSubmission: (book, submission)->
+        @confirmStudentIn book, submission
+        @confirmHuntForStudent book, submission
+        @addPointsToHunt book, submission
+        book
+
+    confirmStudentIn: (book, submission)->
+        book[submission.studentEmail] or= {}
+
+    confirmHuntForStudent: (book, submission)->
+        hunt = @hunts.findHunt submission.script
+        book[submission.studentEmail][hunt.name] or= {points: 0}
+
+    addPointsToHunt: (book, submission)->
+        hunt = @hunts.findHunt submission.script
+        script = @hunts.findScript submission.script
+        book[submission.studentEmail][hunt.name].points += script.points
+
+    curveGradebook: ->
+        for student, hunts of @book
+            for name, hunt of hunts
+                hunt.grade = (Math.sqrt(hunt.points) + 1) * 10
+
+GradebookService.$inject = [
+    'submissionsSvc'
+    'huntservice'
+    'students'
+    '$q'
+]
+
+angular.module('teals.gradebook.service', [
+    'teals.hunts.service'
+    'teals.students.service'
+    'teals.submissions.service'
+]).service 'gradebook', GradebookService
