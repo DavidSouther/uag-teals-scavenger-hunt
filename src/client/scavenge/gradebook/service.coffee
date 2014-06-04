@@ -8,13 +8,15 @@ class GradebookService
         ]
         $q.all.apply($q, promises)
         .then (huntlist)=> # Huntlist is only one that passes a resolved object
-            @buildGradebook()
-            @curveGradebook()
+            @rebuild()
             true
+
+    rebuild: ->
+        @buildGradebook()
+        @curveGradebook()
 
     buildGradebook: ->
         @submissions.submissions.reduce ((b, s)=>@addSubmission(b, s)), @book
-        console.log @book
 
     addSubmission: (book, submission)->
         @confirmStudentIn book, submission

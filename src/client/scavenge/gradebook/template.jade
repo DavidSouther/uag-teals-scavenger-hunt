@@ -19,4 +19,4 @@
                     b {{ s.grade | letter }}
                 td(ng-init="d = hunts['Dates and Times']")
                     | ({{ i.points }})
-    button(ng-click="gradebook.service.buildGradebook()")
+    button(ng-click="gradebook.service.rebuild()") Reload Gradebook
