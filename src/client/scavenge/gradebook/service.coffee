@@ -12,6 +12,7 @@ class GradebookService
             true
 
     rebuild: ->
+        @book = {}
         @buildGradebook()
         @curveGradebook()
 
@@ -45,6 +46,7 @@ class GradebookService
                     hunt.grade = hunt.points
                 else
                     hunt.grade = hunt.points
+        undefined
 
 GradebookService.$inject = [
     'submissionsSvc'
