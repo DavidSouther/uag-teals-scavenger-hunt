@@ -37,7 +37,12 @@ class GradebookService
     curveGradebook: ->
         for student, hunts of @book
             for name, hunt of hunts
-                hunt.grade = (Math.sqrt(hunt.points) + 1) * 10
+                if name is 'Intro'
+                    hunt.grade = (Math.sqrt(hunt.points) + 1) * 10
+                else if name is 'Strings and Integers'
+                    hunt.grade = hunt.points
+                else
+                    hunt.grade = hunt.points
 
 GradebookService.$inject = [
     'submissionsSvc'
