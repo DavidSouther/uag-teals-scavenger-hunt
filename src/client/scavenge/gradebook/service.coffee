@@ -43,7 +43,10 @@ class GradebookService
                 if name is 'Intro'
                     hunt.grade = (Math.sqrt(hunt.points) + 1) * 10
                 else if name is 'Strings and Integers'
-                    hunt.grade = hunt.points
+                    # Keyed to Edmund and Elizabeth
+                    # http://www.wolframalpha.com/input/?
+                    #      i=line+through+%2827.3%2C+70%29+and+%28120%2C+100%29
+                    hunt.grade = 61.165 + 0.323625 * hunt.points
                 else
                     hunt.grade = hunt.points
         undefined
