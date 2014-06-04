@@ -9,14 +9,14 @@
         tbody
             tr(ng-repeat="(student, hunts) in gradebook.service.book")
                 td {{student}}
-                td(ng-init="i = hunts['Intro']")
-                    | ({{ i.points }})
-                    | {{ i.grade | number:1 }},&nbsp;
-                    b {{ i.grade | letter }}
-                td(ng-init="s = hunts['Strings and Integers']")
-                    | ({{ s.points }})
-                    | {{ s.grade | number:1 }},&nbsp;
-                    b {{ s.grade | letter }}
-                td(ng-init="d = hunts['Dates and Times']")
+                td(align="right", ng-init="i = hunts['Intro']")
+                    b {{ i.grade | letter }},&nbsp;
+                    | ({{ i.points }}),&nbsp;
+                    | {{ i.grade | number:1 }}
+                td(align="right", ng-init="s = hunts['Strings and Integers']")
+                    b {{ s.grade | letter }},&nbsp;
+                    | ({{ s.points }}),&nbsp;
+                    | {{ s.grade | number:1 }}
+                td(align="right", ng-init="d = hunts['Dates and Times']")
                     | ({{ s.points }})
     button(ng-click="gradebook.service.rebuild()") Reload Gradebook
