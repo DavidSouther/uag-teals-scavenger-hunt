@@ -4,7 +4,7 @@
 
 Clone the repository and `cd` to the directory.
 
-    git clone ssh://git@stash.novus.local:2022/aloha/nv-chrome.git
+    git clone << Your Fork >>
     cd nv-chrome
 
 ## Install Node, Grunt, and Bower
@@ -66,7 +66,7 @@ From the project root, install the project dependencies.
 # Ongoing
 
 1. git branch
-    * aloha-xxx/ShortDescription -- Any task with a story in JIRA
+    * <<project>>-xxx/ShortDescription -- Any task with a story in the task
     * foundation/ShortDesc -- Work relating to building out the foundation
     * refactor/ShortDesc -- Work captuing a specific refactor
     * bug/ShortDesc -- Work in fixing a bug
@@ -136,11 +136,5 @@ To run the entire feature test suite, run grunt from the project root.
 
 This will run nv-chrome-specific unit tests, nv-chrome dev server tests, and the
 entire nv-aloha feature test suite (using static test data).
-
-# Connecting to Alpha App
-
-After configuring and starting the [Alpha App][alohaapp], attaching the nv-chrome front end is as simple as creating a symlink from `/nv/www/aloha` to `./build/client` and navigating to [http://localhost:8000/](http://localhost:8000/). It is an alpha dev environment, so the username/password is `dev@novus.com`/`dev`.
-
-Creating the symlink probably requires root access, and might need a trip to ITSupport.
 
 [nvm]: https://github.com/creationix/nvm
